@@ -2,28 +2,57 @@
     <h4>Masa Adı</h4>
     <h5>İçerikler</h5>
     <div class="col-12 d-flex flex-row">
-        <div class="row overflow-auto" style="height: 200px;">
-            <button type="button" class="btn btn-secondary ">Masa 1</button>
-            <button type="button" class="btn btn-secondary ">Masa 2</button>
-            <button type="button" class="btn btn-secondary ">Masa 3</button>
-            <button type="button" class="btn btn-secondary ">Masa 4</button>
-            <button type="button" class="btn btn-secondary ">Masa 5</button>
-            <button type="button" class="btn btn-secondary ">Masa 6</button>
-            <button type="button" class="btn btn-secondary ">Masa 7</button>
+        <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
+            <table class="table col-12" ng-click="setSelected();">
+                <thead>
+                  <tr>
+                    <th scope="col">Yemek Adı</th>
+                    <th scope="col">Adet</th>
+                    <th scope="col">Fiyat</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr >
+                    <td>Çay</td>
+                    <td>10</td>
+                    <td>50</td>
+                  </tr>
+                  <tr >
+                    <td>Gold Kahve</td>
+                    <td>5</td>
+                    <td>50</td>
+                  </tr>
+                  <tr>
+                    <td>Waffle</td>
+                    <td>5</td>
+                    <td>100</td>
+                  </tr>
+                </tbody>
+              </table>
         </div>
     </div>
-    <div class="col-12">
-        <div class="col-6 d-flex flex-row">
-           Flex item 1
-        </div>
-        <div class="col-6 d-flex flex-row-reverse">
+    <div class="d-flex justify-content-between" style="padding: 0px;">
+        <div class="p-2 ">Ücret:200</div>
+        <div class="p-2 ">
             <button type="button" class="btn btn-secondary myButton">Hesabı Kapa</button>
-        <button type="button" class="btn btn-secondary myButton">Çıkar</button>
+            <button type="button" class="btn btn-secondary myButton">Çıkar</button>
         </div>
     </div>
-    <div class="d-flex flex-row-reverse" >
-        <button type="button" class="btn btn-secondary myButton">Hesabı Kapa</button>
-        <button type="button" class="btn btn-secondary myButton">Çıkar</button>
+    <div class="d-flex justify-content-between" style="padding: 0px;">
+        <div class="p-2 "> <label for="piece">Kişi Başı : 50</label></div>
+        <div class="p-2 ">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Kişi Sayısı" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Böl</button>
+                </div>
+            </div>
+        </div>
     </div>
-    
+    <div class="d-flex justify-content-between" style="padding: 0px;">
+        <div class="p-2 ">
+            <button type="button" class="btn btn-secondary myButton">Yemek Ekle</button>
+        </div>
+    </div>
 </div>
+

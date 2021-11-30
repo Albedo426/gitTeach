@@ -4,3 +4,6 @@
 .myButton{
     margin-right: 5px;
 }
+.table tbody tr.highlight td {
+    background-color: #ddd;
+  }
