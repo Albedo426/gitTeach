@@ -9,6 +9,7 @@ import { FoodProcessorsComponent } from './food-processors/food-processors.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CategoriesProcessorsComponent } from './categories-processors/categories-processors.component';
+import { TableProcessorsComponent } from './table-processors/table-processors.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CategoriesProcessorsComponent } from './categories-processors/categorie
     ComponentTablesComponent,
     TableDetailComponent,
     FoodProcessorsComponent,
-    CategoriesProcessorsComponent
+    CategoriesProcessorsComponent,
+    TableProcessorsComponent
   ],
   imports: [
     MatTabsModule,
