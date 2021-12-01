@@ -1,0 +1,76 @@
+
+<mat-tab-group class="col-12">
+    <mat-tab label="Ekle">
+    <div class="col-12 center">
+        <form>
+            <div class="form-group" >
+              <label for="FootnameLable">Kategori Adı</label>
+              <input type="email" class="form-control" id="FootnameInput" placeholder="">
+            </div>
+          </form>
+    </div>
+    </mat-tab>
+    <mat-tab label="Sil">
+        <div class="col-12 d-flex flex-row">
+            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
+                <table class="table col-12" ng-click="setSelected();">
+                    <thead>
+                    <tr>
+                        <th scope="col">Kategori Adı</th>
+                        <th scope="col">Kutu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>Sıcak İçecek</td>
+                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
+                    </tr>
+                    <tr >
+                        <td>Tatlı</td>
+                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between" style="padding: 0px;">
+            <button type="button" class="btn btn-secondary myButton">Sil</button>
+       
+        </div>
+    </mat-tab>
+    <mat-tab label="Güncelle">
+        <div class="col-12 d-flex flex-row">
+            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
+                <table class="table col-12" ng-click="setSelected();">
+                    <thead>
+                    <tr>
+                        <th scope="col">Kategori Adı</th>
+                        <th scope="col">Kutu</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr >
+                        <td>Sıcak İçecek</td>
+                        <td>  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></td>
+                    </tr>
+                    <tr >
+                        <td>Tatlı</td>
+                        <td>  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <form>
+            <div class="form-group" >
+              <label for="FootnameLable">Kategori Adı</label>
+              <input type="email" class="form-control" id="FootnameInput" placeholder="">
+            </div>
+            <div class="form-group">
+                <div class="p-2 ">
+                    <button type="button" class="btn btn-secondary myButton">Güncelle</button>
+                </div>
+            </div>
+          </form>
+    </mat-tab>
+</mat-tab-group>
