@@ -10,7 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CategoriesProcessorsComponent } from './categories-processors/categories-processors.component';
 import { TableProcessorsComponent } from './table-processors/table-processors.component';
-
+import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,7 @@ import { TableProcessorsComponent } from './table-processors/table-processors.co
   ],
   imports: [
     MatTabsModule,
-    BrowserModule,
+    BrowserModule,FormsModule,ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],

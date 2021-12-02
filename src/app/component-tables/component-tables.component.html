@@ -1,8 +1,5 @@
-
-    <button type="button" class="btn btn-secondary myTable">Masa 1</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 2</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 3</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 4</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 5</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 6</button>
-    <button type="button" class="btn btn-secondary myTable">Masa 7</button>
+<div *ngIf="tables">
+    <button *ngFor="let table of tables"  type="button" class="btn btn-secondary myTable">
+        {{table.tableName}}
+    </button>
+</div>

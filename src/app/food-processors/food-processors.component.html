@@ -2,34 +2,32 @@
 <mat-tab-group class="col-12">
     <mat-tab label="Ekle">
     <div class="col-12 center">
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="addfoot()">
             <div class="form-group" >
               <label for="FootnameLable">Yemek Adı</label>
-              <input type="email" class="form-control" id="FootnameInput" placeholder="">
+              <input type="text" [(ngModel)]="model.name" name="name" class="form-control" id="FootnameInput" placeholder="">
             </div>
-            <div class="form-group">
+            <div  *ngIf="categories"  class="form-group">
                 <label for="FootKategoriesLable">Yemek Kategorisi</label>
-              <select class="form-control" id="FootKategoriesSelect">
-                <option>tür1</option>
-                <option>tür2</option>
+                <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChange($event)" name="sel2">
+                    <option value="" selected disabled>Kategori seç</option>
+                    <option *ngFor="let category of categories" [ngValue]="category"  >
+                        {{ category.name }}
+                    </option>
               </select>
             </div>
             <div class="form-group">
                 <label for="FootKategoriesLable">Ücret</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Amount">
+                    <input type="text" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="model.price">
                     <div class="input-group-append">
                         <span class="input-group-text">₺</span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="FootImageLabel">Yemek Resmi</label>
-                <input type="file" class="form-control-file" id="FootImageFile">
-            </div>
-            <div class="form-group">
                 <div class="p-2 ">
-                    <button type="button" class="btn btn-secondary myButton">Ekle</button>
+                    <button type="submit" class="btn btn-secondary myButton">Ekle</button>
                 </div>
             </div>
           </form>
@@ -38,7 +36,7 @@
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
             <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table class="table col-12" ng-click="setSelected();">
+                <table *ngIf="foots"  class="table col-12" ng-click="setSelected();">
                     <thead>
                     <tr>
                         <th scope="col">Yemek Adı</th>
@@ -47,20 +45,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td>Çay</td>
-                        <td>5</td>
-                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
-                    </tr>
-                    <tr >
-                        <td>Gold Kahve</td>
-                        <td>10</td>
-                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
-                    </tr>
-                    <tr>
-                        <td>Waffle</td>
-                        <td>25</td>
-                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
+                               
+                    <tr *ngFor="let foot of foots"  >
+                        <td>{{foot.name}}</td>
+                        <td>{{foot.price}}</td>
+                        <td><input class="form-check-input" type="checkbox"  
+                            value="{{foot.id}}"
+                           (change)="updateCheckedOptions(foot.id)"
+                           id="autoSizingCheck"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -68,7 +60,7 @@
         </div>
         <div class="d-flex justify-content-between" style="padding: 0px;">
             <div class="p-2 ">
-                <button type="button" class="btn btn-secondary myButton">Sil</button>
+                <button type="button" (click)="removeFoot()" class="btn btn-secondary myButton">Sil</button>
             </div>
         </div>
     </mat-tab>
@@ -84,53 +76,44 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td>Çay</td>
-                        <td>5</td>
-                        <td>  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></td>
-                    </tr>
-                    <tr >
-                        <td>Gold Kahve</td>
-                        <td>10</td>
-                        <td>  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"></td>
-                    </tr>
-                    <tr>
-                        <td>Waffle</td>
-                        <td>25</td>
-                        <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3"></td>
-                    </tr>
-                    </tbody>
+                        <tr *ngFor="let foot of foots"  >
+                            <td>{{foot.name}}</td>
+                            <td>{{foot.price}}</td>
+                            <td><input class="form-check-input" type="radio"  
+                                value="{{foot.id}}"  name="flexRadioDefault"
+                               (change)="onChangeForUpdate(foot.id)"
+                               id="autoSizingCheck"></td>
+                        </tr>
+                    
                 </table>
             </div>
         </div>
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="addfoot()">
             <div class="form-group" >
               <label for="FootnameLable">Yemek Adı</label>
-              <input type="email" class="form-control" id="FootnameInput" placeholder="">
+              <input type="text" [(ngModel)]="modelforUpdate.name" name="name" class="form-control" id="FootnameInput" placeholder="">
             </div>
-            <div class="form-group">
+            <div  *ngIf="categories"  class="form-group">
                 <label for="FootKategoriesLable">Yemek Kategorisi</label>
-              <select class="form-control" id="FootKategoriesSelect">
-                <option>tür1</option>
-                <option>tür2</option>
+                <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="modelforUpdate.category" (ngModelChange)="onChange($event)" name="sel2">
+                    <option value="" selected disabled>Kategori seç</option>
+                    <option *ngFor="let category of categories" [ngValue]="category"  >
+                        {{ category.name }}
+                    </option>
               </select>
             </div>
             <div class="form-group">
                 <label for="FootKategoriesLable">Ücret</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Amount">
+                    <input type="text" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="modelforUpdate.price">
                     <div class="input-group-append">
                         <span class="input-group-text">₺</span>
                     </div>
                 </div>
             </div>
             <div class="form-group">
-                <label for="FootImageLabel">Yemek Resmi</label>
-                <input type="file" class="form-control-file" id="FootImageFile">
-            </div>
-            <div class="form-group">
                 <div class="p-2 ">
-                    <button type="button" class="btn btn-secondary myButton">Ekle</button>
+                    <button type="submit" class="btn btn-secondary myButton">Ekle</button>
                 </div>
             </div>
           </form>
