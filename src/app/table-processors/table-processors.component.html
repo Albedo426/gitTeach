@@ -2,10 +2,15 @@
 <mat-tab-group class="col-12">
     <mat-tab label="Ekle">
     <div class="col-12 center">
-        <form>
+        <form  #loginForm="ngForm" (ngSubmit)="addTable()">
             <div class="form-group" >
               <label for="FootnameLable">Masa Adı</label>
-              <input type="email" class="form-control" id="FootnameInput" placeholder="">
+              <input [(ngModel)]="model.name" type="text" name="name"  class="form-control" id="FootnameInput" placeholder="">
+            </div>
+            <div class="form-group">
+                <div class="p-2 ">
+                    <button type="submit" class="btn btn-secondary myButton">Ekle</button>
+                </div>
             </div>
           </form>
     </div>
@@ -13,7 +18,7 @@
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
             <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table class="table col-12" ng-click="setSelected();">
+                <table class="table col-12" >
                     <thead>
                     <tr>
                         <th scope="col">Masa Adı</th>
@@ -21,21 +26,20 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td>Masa1</td>
-                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
-                    </tr>
-                    <tr >
-                        <td>Masa2</td>
-                        <td><input class="form-check-input" type="checkbox" id="autoSizingCheck"></td>
-                    </tr>
+                        <tr *ngFor="let table of tables"  >
+                            <td>{{table.name}}</td>
+                            <td><input class="form-check-input" type="checkbox"  
+                                value="{{table.id}}"
+                               (change)="updateCheckedOptions(table.id)"
+                               id="autoSizingCheck"></td>
+                        </tr>
+                  
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class="d-flex justify-content-between" style="padding: 0px;">
-            <button type="button" class="btn btn-secondary myButton">Sil</button>
-       
+        <div class="p-2 ">
+            <button type="button" (click)="removeTable()" class="btn btn-secondary myButton">Sil</button>
         </div>
     </mat-tab>
     <mat-tab label="Güncelle">
@@ -49,14 +53,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr >
-                        <td>Masa1</td>
-                        <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"></td>
-                    </tr>
-                    <tr >
-                        <td>Masa2</td>
-                        <td><input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2"></td>
-                    </tr>
+                        <tr *ngFor="let table of tables"  >
+                            <td>{{table.name}}</td>
+                            <td><input class="form-check-input" type="radio"  
+                                value="{{table.id}}"  name="flexRadioDefault"
+                               (change)="onChangeForUpdate(table.id)"
+                               id="autoSizingCheck"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -64,12 +67,7 @@
         <form>
             <div class="form-group" >
               <label for="FootnameLable">Masa Adı</label>
-              <input type="email" class="form-control" id="FootnameInput" placeholder="">
-            </div>
-            <div class="form-group">
-                <div class="p-2 ">
-                    <button type="button" class="btn btn-secondary myButton">Güncelle</button>
-                </div>
+              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="modelforUpdate.name">
             </div>
           </form>
     </mat-tab>

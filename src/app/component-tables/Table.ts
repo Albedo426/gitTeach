@@ -1,5 +1,5 @@
 export class Table {
     id!: number;
-    tableName!: string;
+    name!: string;
     companyId!: number;
 }

@@ -50,12 +50,12 @@ export class CategoriesProcessorsComponent implements OnInit {
     const objIndex = this.categories.findIndex((x => x.id == foot.id));
     this.categories[objIndex]=this.modelforUpdate;
   }
-  removeFoot(){
+  removeCategory(){
     for( var i = 0; i < this.removIds.length; i++){ 
-      this.removeFootsToArray(this.removIds[i])
+      this.removeremoveCategorisToArray(this.removIds[i])
     }
   }
-  private removeFootsToArray(mytext:any){
+  private removeremoveCategorisToArray(mytext:any){
     for( var i = 0; i < this.categories.length; i++){ 
       if ( this.categories[i].id === mytext) { 
         this.categories.splice(i, 1); 
