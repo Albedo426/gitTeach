@@ -12,6 +12,7 @@ import { CategoriesProcessorsComponent } from './categories-processors/categorie
 import { TableProcessorsComponent } from './table-processors/table-processors.component';
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FootAddProcessorsComponent } from './foot-add-processors/foot-add-processors.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     TableDetailComponent,
     FoodProcessorsComponent,
     CategoriesProcessorsComponent,
-    TableProcessorsComponent
+    TableProcessorsComponent,
+    FootAddProcessorsComponent
   ],
   imports: [
     MatTabsModule,

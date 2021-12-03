@@ -33,11 +33,11 @@ export class TableProcessorsComponent implements OnInit {
     this.model=new Table()
   }
   updateCheckedOptions(id:number){
-    if(this.removIds.includes(id)){
+    if(this.removIds.includes(id))
       this.removeAtArray(id);
-    }else{
+    else
       this.removIds.push(id);
-    }
+    
   }
 
   removeTable(){

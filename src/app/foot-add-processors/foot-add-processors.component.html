@@ -1,0 +1,78 @@
+    
+<mat-tab-group class="col-12">
+    <mat-tab label="MasaYa Yemek Ekle">
+        <div class="col-12 center row">
+            <form>
+                <div  *ngIf="categories"  class="form-group">
+                    <label for="FootKategoriesLable">Yemek Kategorisi</label>
+                    <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChange($event)" name="sel2">
+                        <option value="" selected disabled>Kategori seç</option>
+                        <option *ngFor="let category of categories" [ngValue]="category"  >
+                            {{ category.name }}
+                        </option>
+                </select>
+                </div>
+                
+            </form>
+            <div class="col-12 d-flex flex-row">
+                <div class="col-12 overflow-auto" style="max-height: 200px;"><!--tablo eklenecek-->
+                    <table class="table col-12">
+                        <thead>
+                        <tr>
+                            <th scope="col">Yemek Adı</th>
+                            <th scope="col">Fiyat</th>
+                            <th scope="col">Kutu</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let foot of foots"  >
+                                <td>{{foot.name}}</td>
+                                <td>{{foot.price}}</td>
+                                <td><input class="form-check-input" type="radio"  
+                                    value="{{foot.id}}"  name="flexRadioDefault"
+                                   (change)="selectedData(foot.id)"
+                                   id="autoSizingCheck"></td>
+                            </tr>
+                        
+                    </table>
+                </div>
+             
+            </div>
+            <div class="d-flex justify-content-between" style="padding: 20px;">
+                <div class="p-2 "> <input type="text" [(ngModel)]="menstruation" name="menstruation" class="form-control" id="FootAdetInput" placeholder="Adet"></div>
+                <div class="p-2 ">
+                    <button type="button" class="btn btn-secondary myButton" (click)="addFootToTable()">Hesab ekle</button>
+                </div>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Masadaki Yemekler">
+        <div class="col-12 center row">
+            <div class="col-12 overflow-auto" style="max-height: 200px;"><!--tablo eklenecek-->
+                <table class="table col-12">
+                    <thead>
+                    <tr>
+                        <th scope="col">Masa adı</th>
+                        <th scope="col">Yemek Adı</th>
+                        <th scope="col">P/NP</th>
+                        <th scope="col">Adet</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">şirketId</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let mytable of tableFoot"  >
+                            <td>{{mytable.table.name}}</td>
+                            <td>{{mytable.foot.name}}</td>
+                            <td>{{mytable.paid}}</td>
+                            <td>{{mytable.menstruation}}</td>
+                            <td>{{mytable.createDate}}</td>
+                            <td>{{mytable.companyId}}</td>
+                        </tr>
+                    
+                </table>
+            </div>
+           
+        </div>
+    </mat-tab>
+</mat-tab-group>
