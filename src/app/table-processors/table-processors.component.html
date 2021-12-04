@@ -4,8 +4,8 @@
     <div class="col-12 center">
         <form  #loginForm="ngForm" (ngSubmit)="addTable()">
             <div class="form-group" >
-              <label for="FootnameLable">Masa Adı</label>
-              <input [(ngModel)]="model.name" type="text" name="name"  class="form-control" id="FootnameInput" placeholder="">
+              <label for="nameLable">Masa Adı</label>
+              <input [(ngModel)]="insertModel.name" type="text" name="name"  class="form-control" id="nameInput" placeholder="">
             </div>
             <div class="form-group">
                 <div class="p-2 ">
@@ -17,12 +17,12 @@
     </mat-tab>
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
+            <div class="col-12 overflow-auto"><!--tablo eklenecek-->
                 <table class="table col-12" >
                     <thead>
                     <tr>
-                        <th scope="col">Masa Adı</th>
-                        <th scope="col">Kutu</th>
+                        <th >Masa Adı</th>
+                        <th >Kutu</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,7 +30,7 @@
                             <td>{{table.name}}</td>
                             <td><input class="form-check-input" type="checkbox"  
                                 value="{{table.id}}"
-                               (change)="updateCheckedOptions(table.id)"
+                               (change)="changeStackRemove(table.id)"
                                id="autoSizingCheck"></td>
                         </tr>
                   
@@ -44,12 +44,12 @@
     </mat-tab>
     <mat-tab label="Güncelle">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table class="table col-12" ng-click="setSelected();">
+            <div class="col-12 overflow-auto"><!--tablo eklenecek-->
+                <table class="table col-12" >
                     <thead>
                     <tr>
-                        <th scope="col">Masa Adı</th>
-                        <th scope="col">Kutu</th>
+                        <th >Masa Adı</th>
+                        <th >Kutu</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -57,7 +57,7 @@
                             <td>{{table.name}}</td>
                             <td><input class="form-check-input" type="radio"  
                                 value="{{table.id}}"  name="flexRadioDefault"
-                               (change)="onChangeForUpdate(table.id)"
+                               (change)="changeUpdateData(table.id)"
                                id="autoSizingCheck"></td>
                         </tr>
                     </tbody>
@@ -66,8 +66,8 @@
         </div>
         <form>
             <div class="form-group" >
-              <label for="FootnameLable">Masa Adı</label>
-              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="modelforUpdate.name">
+              <label for="nameLable">Masa Adı</label>
+              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="updateModel.name">
             </div>
           </form>
     </mat-tab>

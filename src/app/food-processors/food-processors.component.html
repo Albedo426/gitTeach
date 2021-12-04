@@ -3,12 +3,12 @@
     <div class="col-12 center">
         <form #loginForm="ngForm" (ngSubmit)="addfoot()">
             <div class="form-group" >
-              <label for="FootnameLable">Yemek Adı</label>
-              <input type="text" [(ngModel)]="model.name" name="name" class="form-control" id="FootnameInput" placeholder="">
+              <label for="nameLable">Yemek Adı</label>
+              <input type="text" [(ngModel)]="insertModel.name" name="name" class="form-control" id="nameInput" placeholder="">
             </div>
             <div  *ngIf="categories"  class="form-group">
-                <label for="FootKategoriesLable">Yemek Kategorisi</label>
-                <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChange($event)" name="sel2">
+                <label for="CategoriesLable">Yemek Kategorisi</label>
+                <select class="form-control" id="CategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChangeCategoryInFootFromAdd($event)" name="sel2">
                     <option value="" selected disabled>Kategori seç</option>
                     <option *ngFor="let category of categories" [ngValue]="category"  >
                         {{ category.name }}
@@ -16,9 +16,9 @@
               </select>
             </div>
             <div class="form-group">
-                <label for="FootKategoriesLable">Ücret</label>
+                <label for="AmountLable">Ücret</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="model.price">
+                    <input type="number" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="insertModel.price">
                     <div class="input-group-append">
                         <span class="input-group-text">₺</span>
                     </div>
@@ -34,13 +34,13 @@
     </mat-tab>
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table *ngIf="foots"  class="table col-12" ng-click="setSelected();">
+            <div class="col-12 overflow-auto"><!--tablo eklenecek-->
+                <table *ngIf="foots"  class="table col-12" >
                     <thead>
                     <tr>
-                        <th scope="col">Yemek Adı</th>
-                        <th scope="col">Fiyat</th>
-                        <th scope="col">Kutu</th>
+                        <th >Yemek Adı</th>
+                        <th >Fiyat</th>
+                        <th >Kutu</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,7 +50,7 @@
                         <td>{{foot.price}}</td>
                         <td><input class="form-check-input" type="checkbox"  
                             value="{{foot.id}}"
-                           (change)="updateCheckedOptions(foot.id)"
+                           (change)="changeStackRemove(foot.id)"
                            id="autoSizingCheck"></td>
                     </tr>
                     </tbody>
@@ -59,19 +59,19 @@
         </div>
         <div class="d-flex justify-content-between" style="padding: 0px;">
             <div class="p-2 ">
-                <button type="button" (click)="removeFoot()" class="btn btn-secondary myButton">Sil</button>
+                <button type="button" (click)="removeFoots()" class="btn btn-secondary myButton">Sil</button>
             </div>
         </div>
     </mat-tab>
     <mat-tab label="Güncelle">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table class="table col-12" ng-click="setSelected();">
+            <div class="col-12 overflow-auto"><!--tablo eklenecek-->
+                <table class="table col-12" >
                     <thead>
                     <tr>
-                        <th scope="col">Yemek Adı</th>
-                        <th scope="col">Fiyat</th>
-                        <th scope="col">Kutu</th>
+                        <th >Yemek Adı</th>
+                        <th >Fiyat</th>
+                        <th >Kutu</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -80,21 +80,20 @@
                             <td>{{foot.price}}</td>
                             <td><input class="form-check-input" type="radio"  
                                 value="{{foot.id}}"  name="flexRadioDefault"
-                               (change)="onChangeForUpdate(foot.id)"
+                               (change)="changeUpdateData(foot.id)"
                                id="autoSizingCheck"></td>
                         </tr>
-                    
                 </table>
             </div>
         </div>
         <form #loginForm="ngForm" >
             <div class="form-group" >
-              <label for="FootnameLable">Yemek Adı</label>
-              <input type="text" [(ngModel)]="modelforUpdate.name" name="name" class="form-control" id="FootnameInput" placeholder="">
+              <label for="nameLable">Yemek Adı</label>
+              <input type="text" [(ngModel)]="updateModel.name" name="name" class="form-control" id="nameInput" placeholder="">
             </div>
             <div  *ngIf="categories"  class="form-group">
-                <label for="FootKategoriesLable">Yemek Kategorisi</label>
-                <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="modelforUpdate.category" (ngModelChange)="onChange($event)" name="sel2">
+                <label for="FootCategoriesLable">Yemek Kategorisi</label>
+                <select class="form-control" id="FootCategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="updateModel.category" (ngModelChange)="onChangeCategoryInFootFromUpdate($event)" name="sel3">
                     <option value="" selected disabled>Kategori seç</option>
                     <option *ngFor="let category of categories" [ngValue]="category"  >
                         {{ category.name }}
@@ -102,9 +101,9 @@
               </select>
             </div>
             <div class="form-group">
-                <label for="FootKategoriesLable">Ücret</label>
+                <label for="amountLable">Ücret</label>
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="modelforUpdate.price">
+                    <input type="number" class="form-control" aria-label="Amount" name="price"  [(ngModel)]="updateModel.price">
                     <div class="input-group-append">
                         <span class="input-group-text">₺</span>
                     </div>

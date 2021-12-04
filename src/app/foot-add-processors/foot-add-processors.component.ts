@@ -4,6 +4,7 @@ import { TabelFoot } from '../component-tables/TableFoot';
 import { Category } from '../food-processors/Category';
 import { Foots } from '../food-processors/Foots';
 import { DatePipe } from '@angular/common';
+import { payFoot } from '../table-detail/payFoot';
 
 @Component({
   selector: 'app-foot-add-processors',
@@ -25,21 +26,20 @@ export class FootAddProcessorsComponent implements OnInit {
     {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
-  tables:Table[]=[
-    {id:1,name:"Masa1",companyId:1},
-    {id:2,name:"Masa2",companyId:2},
-  ];
+
   modelForAddToTable:Foots=new Foots()
 
   selectedFoots!: Foots;//selected category
   
   foots:Foots[]=[];
 
-  tableFoot:TabelFoot[]=[]
-
   getTable:Table=new Table();
+  tableFoot!:TabelFoot;
+  myPayFoot:payFoot[]=[]
+
   ngOnInit(): void {
-    this.getTable=this.tables[0];//get table set
+    this.getTable= {id:1,name:"Masa1",companyId:1};//get table set
+    this.tableFoot={id:1,table:this.getTable,foot:this.myPayFoot,companyId:1}
   }
   onChange(deviceValue: Category) {
     this.foots = this.footsMain.filter(it => it.category.id == deviceValue.id);//fillTable
@@ -50,22 +50,18 @@ export class FootAddProcessorsComponent implements OnInit {
   }
   addFootToTable(){
       if(this.modelForAddToTable.id!=null){
-        const index = this.tableFoot.findIndex((it) => it.foot.id === this.modelForAddToTable.id);
-        
-        if (index >= 0) {
-          this.tableFoot[index].menstruation+=+this.menstruation
-        }else{
-          var myfootTable=new TabelFoot();
-          myfootTable.id=1//datebase Ototmaik
-          myfootTable.createDate= new Date();
-          myfootTable.foot= this.modelForAddToTable;
-          myfootTable.companyId=1//defauld company
-          myfootTable.menstruation=+this.menstruation
-          myfootTable.paid=false;
-          myfootTable.table=this.getTable;
-          this.tableFoot.push(myfootTable)
+        var index:number=-1;
+        if(this.tableFoot.foot.length!=0){
+          index = this.tableFoot.foot.findIndex((it) => it.foot.id === this.modelForAddToTable.id);
+          
         }
-        
+        if (index >= 0) {
+          this.tableFoot.foot[index].menstruation+=+this.menstruation
+        }else{
+          var myfootTable= this.tableFoot;
+          myfootTable.foot.push(new payFoot(this.modelForAddToTable,+this.menstruation,false)) ;
+           this.tableFoot= myfootTable;
+        }
       }else{
         alert("yemek seçin");
       }

@@ -7,32 +7,40 @@ import { Category } from '../food-processors/Category';
   styleUrls: ['./categories-processors.component.css']
 })
 export class CategoriesProcessorsComponent implements OnInit {
-
-  selectedCategory!: Category;//selected category
-  selectedFoots!: number;//selected category
-  constructor() { }
-  model:Category=new Category()
+  //damyData
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:1},
   ];
-  //removeCategory
+  //damyData
+
+  //for insert
+  insertModel:Category=new Category()
+  //for insert
+
+  //for remove
   removIds:Array<number>=new Array();
+  //for remove
 
-  //update 
-  footForUpdate!:Category;
-  modelforUpdate:Category=new Category()
-  selectedFootsForUpdate!: Category;//selected category
+  //for update 
+  updateModel:Category=new Category()
+  //for update 
+  constructor() { }
+
   ngOnInit(): void {
-    this.model.companyId=1//default company
+    this.insertModel.companyId=1//default company
   }
-
+  //for add proses
   addCategoty(){
-    this.categories.push(this.model)
-    this.selectedCategory=new Category();
-    this.model=new Category()
+    this.insertModel.id=this.categories[this.categories.length - 1]!.id+1;//get last index and push insertmodel
+    this.categories.push(this.insertModel)
+    //this.selectedCategory=new Category();
+    this.insertModel=new Category()
   }
-  updateCheckedOptions(id:number){
+  //for add proses
+
+  //for remove proses
+  changeStackRemove(id:number){
     if(this.removIds.includes(id)){
       this.removeAtArray(id);
     }else{
@@ -46,28 +54,28 @@ export class CategoriesProcessorsComponent implements OnInit {
       }
     }
   }
-  updatedata(foot:Category){
-    const objIndex = this.categories.findIndex((x => x.id == foot.id));
-    this.categories[objIndex]=this.modelforUpdate;
-  }
-  removeCategory(){
+  removeCategories(){
     for( var i = 0; i < this.removIds.length; i++){ 
-      this.removeremoveCategorisToArray(this.removIds[i])
+      this.removeToCategoriesArray(this.removIds[i])
     }
   }
-  private removeremoveCategorisToArray(mytext:any){
+  private removeToCategoriesArray(mytext:any){
     for( var i = 0; i < this.categories.length; i++){ 
       if ( this.categories[i].id === mytext) { 
         this.categories.splice(i, 1); 
       }
     }
   }
+  //for remove proses
 
-  onChangeForUpdate(id:number){
-    this.selectedFootsForUpdate = this.categories.filter(it => it.id == id)[0];
-    this.modelforUpdate=this.selectedFootsForUpdate
-    this.updatedata(this.modelforUpdate);
+  //for update prosses
+  changeUpdateData(id:number){
+    this.updateModel = this.categories.filter(it => it.id == id)[0];
+    this.updateData(this.updateModel);
   }
-
-  
+  private updateData(category:Category){
+    const objIndex = this.categories.findIndex((x => x.id == category.id));
+    this.categories[objIndex]=this.updateModel;
+  }
+   //for update prosses
 }

@@ -3,6 +3,7 @@ import { Table } from '../component-tables/Table';
 import { TabelFoot } from '../component-tables/TableFoot';
 import { Category } from '../food-processors/Category';
 import { Foots } from '../food-processors/Foots';
+import { payFoot } from './payFoot';
 @Component({
 
   selector: 'app-table-detail',
@@ -19,27 +20,28 @@ export class TableDetailComponent implements OnInit {
     {id:2,name:"Tatlı",companyId:2},
   ];
   footsMain:Foots[]=[
-    {id:1,name:"waffle",price: 10.10,companyId:2,category:this.categories[1]},
-    {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
+    {id:1,name:"waffle",price: 10.50,companyId:2,category:this.categories[1]},
+    {id:2,name:"çay",price: 5.5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
   tables:Table[]=[
     {id:1,name:"Masa1",companyId:1},
     {id:2,name:"Masa2",companyId:2},
   ];
-  tableFoot:TabelFoot[]=[
-    {id:1,foot:this.footsMain[0],table:this.tables[0],paid:false,menstruation:8,createDate:new Date(),companyId:1},
-    {id:2,foot:this.footsMain[1],table:this.tables[0],paid:false,menstruation:10,createDate:new Date(),companyId:1},
-    {id:3,foot:this.footsMain[1],table:this.tables[0],paid:true,menstruation:10,createDate:new Date(),companyId:1},
-    {id:4,foot:this.footsMain[2],table:this.tables[0],paid:false,menstruation:4,createDate:new Date(),companyId:1},
-  ]
-  tableFootModel!:TabelFoot;
-  
+  test:payFoot[]=[];
+  tableFoot!:TabelFoot;
+  tableFootModel!:payFoot;
   intDivid:number=1;
+
   ngOnInit(): void {
+
+    this.test.push(new  payFoot(this.footsMain[0],8,false))
+    this.test.push(new  payFoot(this.footsMain[1],10,false))
+    this.test.push(new  payFoot(this.footsMain[2],3,false))
+    this.tableFoot={id:1,foot:this.test,table:this.tables[0],companyId:1}
   }
   onChangeForFee(id:number){
-    this.tableFootModel= this.tableFoot.filter(it => it.id == id)[0];
+    this.tableFootModel= this.tableFoot.foot.filter(it => it.foot.id == id)[0];
   }
   getDivideFee(){
     var i=this.getMainFee();
@@ -52,28 +54,29 @@ export class TableDetailComponent implements OnInit {
    
   getMainFee(){
     var mainPrice=0;
-    this.tableFoot.forEach(element => {
+    this.tableFoot.foot.forEach(element => {
       if(!element.paid){
-      mainPrice+=element.foot.price*element.menstruation
+          mainPrice+=element.foot.price*element.menstruation
       }
     });
+     
     return +mainPrice
   }
   fullPay(){
-    this.tableFoot=[];
+    this.tableFoot.foot=[];
   }
   singlePay(){
-    var count =this.tableFoot.filter(it => it == this.tableFootModel)[0].menstruation;
+    var count =this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].menstruation;
     if(count!=1){
-      this.tableFoot.filter(it => it == this.tableFootModel)[0].menstruation--;
+      this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].menstruation--;
     }else{
-      this.removeAtArray(this.tableFoot.filter(it => it == this.tableFootModel)[0].id)
+      this.removeAtArray(this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].foot.id)
     }    
   }
   private removeAtArray(mytext:number){
-    for( var i = 0; i < this.tableFoot.length; i++){ 
-      if ( this.tableFoot[i].id === mytext) { 
-        this.tableFoot.splice(i, 1); 
+    for( var i = 0; i < this.tableFoot.foot.length; i++){ 
+      if ( this.tableFoot.foot[i].foot.id === mytext) { 
+        this.tableFoot.foot.splice(i, 1); 
       }
     }
   }

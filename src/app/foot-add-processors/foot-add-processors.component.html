@@ -61,13 +61,13 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let mytable of tableFoot"  >
-                            <td>{{mytable.table.name}}</td>
+                        <tr *ngFor="let mytable of tableFoot.foot"  >
+                            <td>{{tableFoot.table.name}}</td>
                             <td>{{mytable.foot.name}}</td>
                             <td>{{mytable.paid}}</td>
                             <td>{{mytable.menstruation}}</td>
                             <td>{{mytable.createDate}}</td>
-                            <td>{{mytable.companyId}}</td>
+                            <td>{{tableFoot.companyId}}</td>
                         </tr>
                     
                 </table>

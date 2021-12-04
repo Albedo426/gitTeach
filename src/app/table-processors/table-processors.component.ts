@@ -8,38 +8,45 @@ import { Table } from '../component-tables/Table';
 })
 export class TableProcessorsComponent implements OnInit {
 
-  constructor() { }
-  selectedCategory!: Table;//selected category
-  selectedFoots!: number;//selected category
-  model:Table=new Table()
+  //dumy data
   tables:Table[]=[
     {id:1,name:"Masa1",companyId:1},
     {id:2,name:"Masa2",companyId:2},
   ];
-  //removeFoots
-  removIds:Array<number>=new Array();
-  //update 
-  footForUpdate!:Table;
-  
-  modelforUpdate:Table=new Table()
+  //dumy data
 
-  selectedFootsForUpdate!: Table;//selected category
+ 
+  //for insert
+  insertModel:Table=new Table()
+  //for insert
+
+  //for remove
+  removIds:Array<number>=new Array();
+  //for remove
+
+  //for update  
+  updateModel:Table=new Table()
+  //for update  
   
+  constructor() { }
   ngOnInit(): void {
   }
+  //for add process
   addTable(){
-    this.tables.push(this.model)
-    this.selectedCategory=new Table();
-    this.model=new Table()
+    this.insertModel.id=this.tables[this.tables.length - 1]!.id+1;//get last index and push insertmodel
+    this.tables.push(this.insertModel)
+    this.insertModel=new Table()
   }
-  updateCheckedOptions(id:number){
+   //for add process
+
+   //for remove process
+  changeStackRemove(id:number){
     if(this.removIds.includes(id))
       this.removeAtArray(id);
     else
       this.removIds.push(id);
     
   }
-
   removeTable(){
     for( var i = 0; i < this.removIds.length; i++){ 
       this.removeremoveCategorisToArray(this.removIds[i])
@@ -59,15 +66,17 @@ export class TableProcessorsComponent implements OnInit {
       }
     }
   }
+  //for remove process
 
-  onChangeForUpdate(id:number){
-    this.selectedFootsForUpdate = this.tables.filter(it => it.id == id)[0];
-    this.modelforUpdate=this.selectedFootsForUpdate
-    this.updatedata(this.modelforUpdate);
+  //for update process
+  changeUpdateData(id:number){
+    this.updateModel= this.tables.filter(it => it.id == id)[0];
+    this.updatedata(this.updateModel);
   }
   
   updatedata(table:Table){
     const objIndex = this.tables.findIndex((x => x.id == table.id));
-    this.tables[objIndex]=this.modelforUpdate;
+    this.tables[objIndex]=this.updateModel;
   }
+    //for update process
 }

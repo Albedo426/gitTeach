@@ -1,23 +1,22 @@
-
 <mat-tab-group class="col-12">
     <mat-tab label="Ekle">
-    <div class="col-12 center">
-        <form #loginForm="ngForm" (ngSubmit)="addCategoty()">
-            <div class="form-group" >
-              <label for="FootnameLable">Kategori Adı</label>
-              <input [(ngModel)]="model.name" type="text" name="name" class="form-control" id="FootnameInput" placeholder="">
-            </div>
-            <div class="form-group">
-                <div class="p-2 ">
-                    <button type="submit" class="btn btn-secondary myButton">Ekle</button>
+        <div class="col-12 center">
+            <form #loginForm="ngForm" (ngSubmit)="addCategoty()">
+                <div class="form-group" >
+                <label for="name-lable">Kategori Adı</label>
+                <input [(ngModel)]="insertModel.name" type="text" name="name" class="form-control" id="nameInput" placeholder="">
                 </div>
-            </div>
-          </form>
-    </div>
+                <div class="form-group">
+                    <div class="p-2 ">
+                        <button type="submit" class="btn btn-secondary myButton">Ekle</button>
+                    </div>
+                </div>
+            </form>
+        </div>
     </mat-tab>
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
+            <div class="col-12 overflow-auto" >
                 <table class="table col-12" >
                     <thead>
                     <tr>
@@ -30,7 +29,7 @@
                             <td>{{category.name}}</td>
                             <td><input class="form-check-input" type="checkbox"  
                                 value="{{category.id}}"
-                               (change)="updateCheckedOptions(category.id)"
+                               (change)="changeStackRemove(category.id)"
                                id="autoSizingCheck"></td>
                         </tr>
                     </tbody>
@@ -38,13 +37,13 @@
             </div>
         </div>
         <div class="p-2 ">
-            <button type="button" (click)="removeCategory()" class="btn btn-secondary myButton">Sil</button>
+            <button type="button" (click)="removeCategories()" class="btn btn-secondary myButton">Sil</button>
         </div>
     </mat-tab>
     <mat-tab label="Güncelle">
         <div class="col-12 d-flex flex-row">
-            <div class="col-12 overflow-auto" style="height: 200px;"><!--tablo eklenecek-->
-                <table class="table col-12" ng-click="setSelected();">
+            <div class="col-12 overflow-auto" ><!--tablo eklenecek-->
+                <table class="table col-12">
                     <thead>
                     <tr>
                         <th scope="col">Kategori Adı</th>
@@ -56,7 +55,7 @@
                             <td>{{category.name}}</td>
                             <td><input class="form-check-input" type="radio"  
                                 value="{{category.id}}"  name="flexRadioDefault"
-                               (change)="onChangeForUpdate(category.id)"
+                               (change)="changeUpdateData(category.id)"
                                id="autoSizingCheck"></td>
                         </tr>
                     </tbody>
@@ -65,8 +64,8 @@
         </div>
         <form>
             <div class="form-group" >
-              <label for="FootnameLable">Kategori Adı</label>
-              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="modelforUpdate.name">
+              <label for="nameLable">Kategori Adı</label>
+              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="updateModel.name">
             </div>
           </form>
     </mat-tab>

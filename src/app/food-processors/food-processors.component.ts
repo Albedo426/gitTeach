@@ -8,10 +8,8 @@ import { Foots } from './Foots';
   styleUrls: ['./food-processors.component.css']
 })
 export class FoodProcessorsComponent implements OnInit {
-  selectedCategory!: Category;//selected category
-  selectedFoots!: number;//selected category
-  constructor() { }
-  model:Foots=new Foots()
+
+  //damy data
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:2},
@@ -21,60 +19,47 @@ export class FoodProcessorsComponent implements OnInit {
     {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
+  //damy data
 
-  //removeFoots
+  constructor() { }
+  
+  //for remove
   removIds:Array<number>=new Array();
-  //update 
+  //for remove
+
+  //for update 
   footForUpdate!:Foots;
-  
-  modelforUpdate:Foots=new Foots()
+  updateModel:Foots=new Foots()
+  //for update
 
-  selectedFootsForUpdate!: Foots;//selected category
-  
+  //for add
+  insertModel:Foots=new Foots()
+  selectedCategory!: Category;//selected category
+  //for add 
+
   ngOnInit(): void {
-    this.model.companyId=1//defauld şirketId
-  }
-  
-  //update foots
-  onChangeForUpdate(id:number){
-    this.selectedFootsForUpdate = this.foots.filter(it => it.id == id)[0];
-    this.modelforUpdate=this.selectedFootsForUpdate
-    this.updatedata(this.modelforUpdate);
+    this.insertModel.companyId=1//defauld şirketId
   }
 
-  updatedata(foot:Foots){
-    const objIndex = this.foots.findIndex((x => x.id == foot.id));
-    this.foots[objIndex]=this.modelforUpdate;
-  }
-  //forAddFoots
+  //for add process
   addfoot():void{
     //alert(this.model.toString());
-    this.foots.push(this.model)
+    this.insertModel.id=this.foots[this.foots.length - 1]!.id+1;//get last index and push insertmodel
+    this.foots.push(this.insertModel)
     this.selectedCategory=new Category();
-    this.model=new Foots()
+    this.insertModel=new Foots()
   }
-  onChange(deviceValue: Category) {
-    this.model.category=deviceValue;
+  onChangeCategoryInFootFromAdd(deviceValue: Category) {
+    this.insertModel.category=deviceValue;
   }
+  //for add process
 
-  //remove foots
-  updateCheckedOptions(id:number){
+  //for remove process
+  changeStackRemove(id:number){
     if(this.removIds.includes(id)){
       this.removeAtArray(id);
     }else{
       this.removIds.push(id);
-    }
-  }
-  removeFoot(){
-    for( var i = 0; i < this.removIds.length; i++){ 
-      this.removeFootsToArray(this.removIds[i])
-    }
-  }
-  private removeFootsToArray(mytext:any){
-    for( var i = 0; i < this.foots.length; i++){ 
-      if ( this.foots[i].id === mytext) { 
-        this.foots.splice(i, 1); 
-      }
     }
   }
   private removeAtArray(mytext:number){
@@ -84,4 +69,33 @@ export class FoodProcessorsComponent implements OnInit {
       }
     }
   }
+  removeFoots(){
+    for( var i = 0; i < this.removIds.length; i++){ 
+      this.removeToFootsArray(this.removIds[i])
+    }
+  }
+  private removeToFootsArray(mytext:any){
+    for( var i = 0; i < this.foots.length; i++){ 
+      if ( this.foots[i].id === mytext) { 
+        this.foots.splice(i, 1); 
+      }
+    }
+  }
+  //for remove process
+
+  //for update process
+  changeUpdateData(id:number){
+    this.updateModel = this.foots.filter(it => it.id == id)[0];
+    this.updateData(this.updateModel);
+  }
+  updateData(foot:Foots){
+    const objIndex = this.foots.findIndex((x => x.id == foot.id));
+    this.foots[objIndex]=this.updateModel;
+  }
+  onChangeCategoryInFootFromUpdate(deviceValue: Category) {
+    this.updateModel.category=deviceValue;
+  }
+  //for update process
+
+
 }
