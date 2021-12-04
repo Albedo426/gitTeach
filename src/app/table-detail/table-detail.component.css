@@ -4,6 +4,6 @@
 .myButton{
     margin-right: 5px;
 }
-.table tbody tr.highlight td {
-    background-color: #ddd;
-  }
+.overflow-auto{
+    max-height:200px;
+}

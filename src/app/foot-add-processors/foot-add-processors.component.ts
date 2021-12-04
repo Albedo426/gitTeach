@@ -13,10 +13,9 @@ import { payFoot } from '../table-detail/payFoot';
   providers: [DatePipe]
 })
 export class FootAddProcessorsComponent implements OnInit {
-  constructor() { }
-  menstruation!:String;
-  
-  selectedCategory!: Category;//selected category
+ 
+  //dumy daya
+  foots:Foots[]=[];
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:2},
@@ -26,44 +25,46 @@ export class FootAddProcessorsComponent implements OnInit {
     {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
-
-  modelForAddToTable:Foots=new Foots()
-
-  selectedFoots!: Foots;//selected category
+  myPayFoot:payFoot[]=[]
+  //dumy data
   
-  foots:Foots[]=[];
-
   getTable:Table=new Table();
   tableFoot!:TabelFoot;
-  myPayFoot:payFoot[]=[]
 
+  //for add foot to table
+  selectedCategory!: Category;
+  menstruation:number=1;
+  modelForAddToTable:Foots=new Foots()
+  //for add foot to table
+
+  constructor() { }
   ngOnInit(): void {
-    this.getTable= {id:1,name:"Masa1",companyId:1};//get table set
-    this.tableFoot={id:1,table:this.getTable,foot:this.myPayFoot,companyId:1}
+    this.getTable= {id:1,name:"Masa1",companyId:1};//get table
+    this.tableFoot={id:1,table:this.getTable,foot:this.myPayFoot,companyId:1}//seach and get from sql 
   }
-  onChange(deviceValue: Category) {
+  //add foot to table process
+  onChangeFootToCategories(deviceValue: Category) {
     this.foots = this.footsMain.filter(it => it.category.id == deviceValue.id);//fillTable
   }
-  selectedData(id:number){
-    this.selectedFoots = this.foots.filter(it => it.id == id)[0];
-    this.modelForAddToTable=this.selectedFoots//selectedData
+  selectedForFee(id:number){
+    this.modelForAddToTable=this.foots.filter(it => it.id == id)[0];
   }
   addFootToTable(){
-      if(this.modelForAddToTable.id!=null){
-        var index:number=-1;
-        if(this.tableFoot.foot.length!=0){
-          index = this.tableFoot.foot.findIndex((it) => it.foot.id === this.modelForAddToTable.id);
-          
-        }
-        if (index >= 0) {
-          this.tableFoot.foot[index].menstruation+=+this.menstruation
-        }else{
-          var myfootTable= this.tableFoot;
-          myfootTable.foot.push(new payFoot(this.modelForAddToTable,+this.menstruation,false)) ;
-           this.tableFoot= myfootTable;
-        }
-      }else{
-        alert("yemek seçin");
+    if(this.modelForAddToTable.id!=null){
+      var index:number=-1;
+      if(this.tableFoot.foot.length!=0){
+        index = this.tableFoot.foot.findIndex((it) => it.foot.id === this.modelForAddToTable.id);
       }
-  }  
+      if (index >= 0) {
+        this.tableFoot.foot[index].menstruation+=this.menstruation
+      }else{
+        var myfootTable= this.tableFoot;
+        myfootTable.foot.push(new payFoot(this.modelForAddToTable,this.menstruation,false)) ;
+         this.tableFoot= myfootTable;
+      }
+    }else{
+      alert("yemek seçin");
+    }
+  }   
+  //add foot to table process
 }

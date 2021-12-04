@@ -1,11 +1,11 @@
     
 <mat-tab-group class="col-12">
-    <mat-tab label="MasaYa Yemek Ekle">
+    <mat-tab label="Masaya Yemek Ekle">
         <div class="col-12 center row">
             <form>
                 <div  *ngIf="categories"  class="form-group">
-                    <label for="FootKategoriesLable">Yemek Kategorisi</label>
-                    <select class="form-control" id="FootKategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChange($event)" name="sel2">
+                    <label for="CategoriesLable">Yemek Kategorisi</label>
+                    <select class="form-control" id="CategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChangeFootToCategories($event)" name="sel2">
                         <option value="" selected disabled>Kategori seç</option>
                         <option *ngFor="let category of categories" [ngValue]="category"  >
                             {{ category.name }}
@@ -15,13 +15,13 @@
                 
             </form>
             <div class="col-12 d-flex flex-row">
-                <div class="col-12 overflow-auto" style="max-height: 200px;"><!--tablo eklenecek-->
+                <div class="col-12 overflow-auto" ><!--tablo eklenecek-->
                     <table class="table col-12">
                         <thead>
                         <tr>
-                            <th scope="col">Yemek Adı</th>
-                            <th scope="col">Fiyat</th>
-                            <th scope="col">Kutu</th>
+                            <th >Yemek Adı</th>
+                            <th>Fiyat</th>
+                            <th >Kutu</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -30,7 +30,7 @@
                                 <td>{{foot.price}}</td>
                                 <td><input class="form-check-input" type="radio"  
                                     value="{{foot.id}}"  name="flexRadioDefault"
-                                   (change)="selectedData(foot.id)"
+                                   (change)="selectedForFee(foot.id)"
                                    id="autoSizingCheck"></td>
                             </tr>
                         
@@ -39,7 +39,7 @@
              
             </div>
             <div class="d-flex justify-content-between" style="padding: 20px;">
-                <div class="p-2 "> <input type="text" [(ngModel)]="menstruation" name="menstruation" class="form-control" id="FootAdetInput" placeholder="Adet"></div>
+                <div class="p-2 "> <input type="number" [(ngModel)]="menstruation" name="menstruation" class="form-control" id="FootAdetInput" placeholder="Adet"></div>
                 <div class="p-2 ">
                     <button type="button" class="btn btn-secondary myButton" (click)="addFootToTable()">Hesab ekle</button>
                 </div>
@@ -48,16 +48,16 @@
     </mat-tab>
     <mat-tab label="Masadaki Yemekler">
         <div class="col-12 center row">
-            <div class="col-12 overflow-auto" style="max-height: 200px;"><!--tablo eklenecek-->
+            <div class="col-12 overflow-auto"><!--tablo eklenecek-->
                 <table class="table col-12">
                     <thead>
                     <tr>
-                        <th scope="col">Masa adı</th>
-                        <th scope="col">Yemek Adı</th>
-                        <th scope="col">P/NP</th>
-                        <th scope="col">Adet</th>
-                        <th scope="col">Tarih</th>
-                        <th scope="col">şirketId</th>
+                        <th>Masa adı</th>
+                        <th>Yemek Adı</th>
+                        <th>P/NP</th>
+                        <th>Adet</th>
+                        <th>Tarih</th>
+                        <th>şirketId</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,7 +69,6 @@
                             <td>{{mytable.createDate}}</td>
                             <td>{{tableFoot.companyId}}</td>
                         </tr>
-                    
                 </table>
             </div>
            

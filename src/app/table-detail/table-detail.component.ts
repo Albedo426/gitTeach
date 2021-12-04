@@ -14,7 +14,7 @@ import { payFoot } from './payFoot';
 
 export class TableDetailComponent implements OnInit {
 
-  constructor() { }
+  //damy data
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:2},
@@ -28,30 +28,38 @@ export class TableDetailComponent implements OnInit {
     {id:1,name:"Masa1",companyId:1},
     {id:2,name:"Masa2",companyId:2},
   ];
-  test:payFoot[]=[];
+  myPayFoot:payFoot[]=[];//masadakiler
+  //damy data
+
   tableFoot!:TabelFoot;
   tableFootModel!:payFoot;
   intDivid:number=1;
 
+  constructor() { }
   ngOnInit(): void {
-
-    this.test.push(new  payFoot(this.footsMain[0],8,false))
-    this.test.push(new  payFoot(this.footsMain[1],10,false))
-    this.test.push(new  payFoot(this.footsMain[2],3,false))
-    this.tableFoot={id:1,foot:this.test,table:this.tables[0],companyId:1}
+    //init dumy data
+    this.myPayFoot.push(new  payFoot(this.footsMain[0],8,false))
+    this.myPayFoot.push(new  payFoot(this.footsMain[1],10,false))
+    this.myPayFoot.push(new  payFoot(this.footsMain[2],3,false))
+    this.tableFoot={id:1,foot:this.myPayFoot,table:this.tables[0],companyId:1}
+     //init dumy data
   }
+  //prepare for pay
   onChangeForFee(id:number){
     this.tableFootModel= this.tableFoot.foot.filter(it => it.foot.id == id)[0];
   }
+  //prepare for pay
+
+  //divid to fee
   getDivideFee(){
     var i=this.getMainFee();
-    
       if(i!=0 && this.intDivid!=0 && this.intDivid!=null){
         return (i/this.intDivid);
       }
       return 0;
   }
-   
+  //divid to fee
+
   getMainFee(){
     var mainPrice=0;
     this.tableFoot.foot.forEach(element => {
@@ -59,7 +67,6 @@ export class TableDetailComponent implements OnInit {
           mainPrice+=element.foot.price*element.menstruation
       }
     });
-     
     return +mainPrice
   }
   fullPay(){
@@ -73,6 +80,7 @@ export class TableDetailComponent implements OnInit {
       this.removeAtArray(this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].foot.id)
     }    
   }
+  
   private removeAtArray(mytext:number){
     for( var i = 0; i < this.tableFoot.foot.length; i++){ 
       if ( this.tableFoot.foot[i].foot.id === mytext) { 
