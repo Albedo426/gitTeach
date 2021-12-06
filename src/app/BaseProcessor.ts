@@ -2,6 +2,10 @@ import { BaseExportClass } from "./BaseExportClass";
 import { Category } from "./food-processors/Category";
 
 export class BaseProcessor<T extends BaseExportClass>{
+
+  //normalde fonksiyonlara paremetre olarak dizi atılmayacak veri tabanı işleminin başlangıcı farklı clastan gelicek kalıtım ile veya farklı bir yöntem ile
+
+
   //for remove
   removIds:Array<number>=new Array();
   //for remove
@@ -16,7 +20,10 @@ export class BaseProcessor<T extends BaseExportClass>{
       this.updateModel=insertType
       this.insertModel=insertType
     }
-    
+    addCategoty(mydatas:BaseExportClass[]){
+      this.insertModel.id=mydatas[mydatas.length - 1]!.id+1;//get last index and push insertmodel
+      mydatas.push(this.insertModel)
+    }
     //remove process
     changeStackRemove(id:number){
         if(this.removIds.includes(id)){

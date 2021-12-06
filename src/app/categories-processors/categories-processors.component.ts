@@ -27,8 +27,7 @@ export class CategoriesProcessorsComponent implements OnInit {
 
   //for add proses
   addCategoty(){
-    this.baseProcessor.insertModel.id=this.categories[this.categories.length - 1]!.id+1;//get last index and push insertmodel
-    this.categories.push(this.baseProcessor.insertModel)
+    this.baseProcessor.addCategoty(this.categories)
     this.baseProcessor.insertModel=new Category()
   }
   //for add proses
