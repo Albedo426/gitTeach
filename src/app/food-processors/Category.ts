@@ -1,5 +1,6 @@
-export class Category {
-    id!: number;
+import { BaseExportClass } from "../BaseExportClass";
+
+export class Category  extends BaseExportClass{
     name!: string;
     companyId!:number
 }

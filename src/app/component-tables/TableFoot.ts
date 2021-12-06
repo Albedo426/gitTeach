@@ -1,10 +1,9 @@
-import { Category } from "../food-processors/Category";
-import { Foots } from "../food-processors/Foots";
+import { BaseExportClass } from "../BaseExportClass";
 import { payFoot } from "../table-detail/payFoot";
 import { Table } from "./Table";
 
-export class TabelFoot{
-    id!:number;
+   
+export class TabelFoot extends BaseExportClass{
     table!:Table;
     foot!:payFoot[];
     companyId!:number;

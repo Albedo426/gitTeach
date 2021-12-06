@@ -4,7 +4,7 @@
             <form #loginForm="ngForm" (ngSubmit)="addCategoty()">
                 <div class="form-group" >
                 <label for="name-lable">Kategori Adı</label>
-                <input [(ngModel)]="insertModel.name" type="text" name="name" class="form-control" id="nameInput" placeholder="">
+                <input [(ngModel)]="baseProcessor.insertModel.name" type="text" name="name" class="form-control" id="nameInput" placeholder="">
                 </div>
                 <div class="form-group">
                     <div class="p-2 ">
@@ -65,7 +65,7 @@
         <form>
             <div class="form-group" >
               <label for="nameLable">Kategori Adı</label>
-              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="updateModel.name">
+              <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="baseProcessor.updateModel.name">
             </div>
           </form>
     </mat-tab>
