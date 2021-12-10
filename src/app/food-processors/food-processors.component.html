@@ -1,7 +1,7 @@
 <mat-tab-group class="col-12">
     <mat-tab label="Ekle">
     <div class="col-12 center">
-        <form #loginForm="ngForm" (ngSubmit)="addfoot()">
+        <form #loginForm="ngForm" (ngSubmit)="add()">
             <div class="form-group" >
               <label for="nameLable">Yemek Adı</label>
               <input type="text" [(ngModel)]="insertModel.name" name="name" class="form-control" id="nameInput" placeholder="">
@@ -59,7 +59,7 @@
         </div>
         <div class="d-flex justify-content-between" style="padding: 0px;">
             <div class="p-2 ">
-                <button type="button" (click)="removeFoots()" class="btn btn-secondary myButton">Sil</button>
+                <button type="button" (click)="remove()" class="btn btn-secondary myButton">Sil</button>
             </div>
         </div>
     </mat-tab>

@@ -2,7 +2,7 @@
 <mat-tab-group class="col-12">
     <mat-tab label="Ekle">
     <div class="col-12 center">
-        <form  #loginForm="ngForm" (ngSubmit)="addTable()">
+        <form  #loginForm="ngForm" (ngSubmit)="add()">
             <div class="form-group" >
               <label for="nameLable">Masa Adı</label>
               <input [(ngModel)]="insertModel.name" type="text" name="name"  class="form-control" id="nameInput" placeholder="">
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="p-2 ">
-            <button type="button" (click)="removeTable()" class="btn btn-secondary myButton">Sil</button>
+            <button type="button" (click)="remove()" class="btn btn-secondary myButton">Sil</button>
         </div>
     </mat-tab>
     <mat-tab label="Güncelle">

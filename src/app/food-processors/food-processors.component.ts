@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BaseProcessComponent } from '../BaseProcessComponent';
 import { Category } from './Category';
 import { Foots } from './Foots';
 @Component({
@@ -7,7 +8,7 @@ import { Foots } from './Foots';
   templateUrl: './food-processors.component.html',
   styleUrls: ['./food-processors.component.css']
 })
-export class FoodProcessorsComponent implements OnInit {
+export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
 
   //damy data
   categories:Category[]=[
@@ -21,28 +22,17 @@ export class FoodProcessorsComponent implements OnInit {
   ];
   //damy data
 
-  constructor() { }
-  
-  //for remove
-  removIds:Array<number>=new Array();
-  //for remove
+  constructor() { 
+    super(new Foots);
+  }
 
-  //for update 
-  footForUpdate!:Foots;
-  updateModel:Foots=new Foots()
-  //for update
 
-  //for add
-  insertModel:Foots=new Foots()
-  selectedCategory!: Category;//selected category
-  //for add 
-
-  ngOnInit(): void {
+  override ngOnInit(): void {
     this.insertModel.companyId=1//defauld şirketId
   }
 
   //for add process
-  addfoot():void{
+  override add():void{
     //alert(this.model.toString());
     this.insertModel.id=this.foots[this.foots.length - 1]!.id+1;//get last index and push insertmodel
     this.foots.push(this.insertModel)
@@ -55,29 +45,12 @@ export class FoodProcessorsComponent implements OnInit {
   //for add process
 
   //for remove process
-  changeStackRemove(id:number){
-    if(this.removIds.includes(id)){
-      this.removeAtArray(id);
-    }else{
-      this.removIds.push(id);
-    }
-  }
-  private removeAtArray(mytext:number){
-    for( var i = 0; i < this.removIds.length; i++){ 
-      if ( this.removIds[i] === mytext) { 
-        this.removIds.splice(i, 1); 
-      }
-    }
-  }
-  removeFoots(){
-    for( var i = 0; i < this.removIds.length; i++){ 
-      this.removeToFootsArray(this.removIds[i])
-    }
-  }
-  private removeToFootsArray(mytext:any){
-    for( var i = 0; i < this.foots.length; i++){ 
-      if ( this.foots[i].id === mytext) { 
-        this.foots.splice(i, 1); 
+  override remove(){
+    for( var i = 0; i < this.removeIds.length; i++){ 
+      for( var k = 0; k <this.foots.length; k++){ 
+        if ( this.foots[k].id === this.removeIds[i]) { 
+           this.foots.splice(k, 1); 
+        }
       }
     }
   }
@@ -92,6 +65,7 @@ export class FoodProcessorsComponent implements OnInit {
     const objIndex = this.foots.findIndex((x => x.id == foot.id));
     this.foots[objIndex]=this.updateModel;
   }
+
   onChangeCategoryInFootFromUpdate(deviceValue: Category) {
     this.updateModel.category=deviceValue;
   }

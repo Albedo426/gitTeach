@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseProcessor } from '../baseProcessor';
+import { BaseProcessComponent } from '../BaseProcessComponent';
 import { Category } from '../food-processors/Category';
 
 @Component({
@@ -7,45 +7,54 @@ import { Category } from '../food-processors/Category';
   templateUrl: './categories-processors.component.html',
   styleUrls: ['./categories-processors.component.css']
 })
-export class CategoriesProcessorsComponent implements OnInit {
+export class CategoriesProcessorsComponent extends BaseProcessComponent<Category> {
+ 
+
   //damyData
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:1},
   ];
   //damyData
-  baseProcessor!:BaseProcessor<Category>;
   
   constructor() { 
-    this.baseProcessor= new BaseProcessor(new Category);
+    super(new Category);
   }
 
-  ngOnInit(): void {
+  override ngOnInit(): void {
     //this.insertModel.companyId=1//default company
-    this.baseProcessor.insertModel.companyId=1
+    this.insertModel.companyId=1
   }
-
+  
   //for add proses
-  addCategoty(){
-    this.baseProcessor.addCategoty(this.categories)
-    this.baseProcessor.insertModel=new Category()
+  override add(): void {
+    this.insertModel.id=this.categories[this.categories.length - 1]!.id+1;//get last index and push insertmodel
+    this.categories.push(this.insertModel)
+    this.insertModel=new Category()
   }
   //for add proses
 
   //for remove proses
-  changeStackRemove(id:number){
-    this.baseProcessor.changeStackRemove(id)
-  }
-  removeCategories(){
-    for( var i = 0; i < this.baseProcessor.removIds.length; i++){ 
-      this.baseProcessor.removeToArray(this.categories,this.baseProcessor.removIds[i])
+  override remove(){
+    for( var i = 0; i < this.removeIds.length; i++){ 
+      for( var k = 0; k <this.categories.length; k++){ 
+        if ( this.categories[k].id === this.removeIds[i]) { 
+           this.categories.splice(k, 1); 
+        }
+      }
     }
   }
   //for remove proses
 
   //for update prosses
-  changeUpdateData(id:number){
-    this.baseProcessor.changeUpdateData(id,this.categories) 
+  override changeUpdateData(id:number){
+    this.updateModel = this.categories.filter(it => it.id == id)[0];
+    this.updateData(this.updateModel);
   }
+  override updateData(category:Category): void {
+    const objIndex = this.categories.findIndex((x => x.id == category.id));
+    this.categories[objIndex]=this.updateModel;
+  }
+
   //for update prosses
 }
