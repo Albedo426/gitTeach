@@ -64,7 +64,7 @@ export class TableDetailComponent implements OnInit {
     var mainPrice=0;
     this.tableFoot.foot.forEach(element => {
       if(!element.paid){
-          mainPrice+=element.foot.price*element.menstruation
+          mainPrice+=element.foot.price*element.total
       }
     });
     return +mainPrice
@@ -73,9 +73,9 @@ export class TableDetailComponent implements OnInit {
     this.tableFoot.foot=[];
   }
   singlePay(){
-    var count =this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].menstruation;
+    var count =this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].total;
     if(count!=1){
-      this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].menstruation--;
+      this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].total--;
     }else{
       this.removeAtArray(this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].foot.id)
     }    

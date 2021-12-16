@@ -33,7 +33,7 @@ export class FootAddProcessorsComponent implements OnInit {
 
   //for add foot to table
   selectedCategory!: Category;
-  menstruation:number=1;
+  total:number=1;
   modelForAddToTable:Foots=new Foots()
   //for add foot to table
 
@@ -52,14 +52,15 @@ export class FootAddProcessorsComponent implements OnInit {
   addFootToTable(){
     if(this.modelForAddToTable.id!=null){
       var index:number=-1;
+     
       if(this.tableFoot.foot.length!=0){
         index = this.tableFoot.foot.findIndex((it) => it.foot.id === this.modelForAddToTable.id);
       }
       if (index >= 0) {
-        this.tableFoot.foot[index].menstruation+=this.menstruation
+        this.tableFoot.foot[index].total+=this.total
       }else{
         var myfootTable= this.tableFoot;
-        myfootTable.foot.push(new payFoot(this.modelForAddToTable,this.menstruation,false)) ;
+        myfootTable.foot.push(new payFoot(this.modelForAddToTable,this.total,false)) ;
          this.tableFoot= myfootTable;
       }
     }else{
