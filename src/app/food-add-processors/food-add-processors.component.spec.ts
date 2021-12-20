@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FootAddProcessorsComponent } from './foot-add-processors.component';
+import { FoodAddProcessorsComponent } from './food-add-processors.component';
 
-describe('FootAddProcessorsComponent', () => {
-  let component: FootAddProcessorsComponent;
-  let fixture: ComponentFixture<FootAddProcessorsComponent>;
+describe('FoodAddProcessorsComponent', () => {
+  let component: FoodAddProcessorsComponent;
+  let fixture: ComponentFixture<FoodAddProcessorsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FootAddProcessorsComponent ]
+      declarations: [ FoodAddProcessorsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FootAddProcessorsComponent);
+    fixture = TestBed.createComponent(FoodAddProcessorsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

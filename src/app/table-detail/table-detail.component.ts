@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Table } from '../component-tables/Table';
-import { TabelFoot } from '../component-tables/TableFoot';
+import { TabelFood } from '../component-tables/TableFooD';
 import { Category } from '../food-processors/Category';
-import { Foots } from '../food-processors/Foots';
-import { payFoot } from './payFoot';
+import { Food } from '../food-processors/Food';
+import { payFood } from './payFood';
 @Component({
 
   selector: 'app-table-detail',
@@ -19,7 +19,7 @@ export class TableDetailComponent implements OnInit {
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:2},
   ];
-  footsMain:Foots[]=[
+  foodsMain:Food[]=[
     {id:1,name:"waffle",price: 10.50,companyId:2,category:this.categories[1]},
     {id:2,name:"çay",price: 5.5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
@@ -28,25 +28,25 @@ export class TableDetailComponent implements OnInit {
     {id:1,name:"Masa1",companyId:1},
     {id:2,name:"Masa2",companyId:2},
   ];
-  myPayFoot:payFoot[]=[];//masadakiler
+  myPayFood:payFood[]=[];//masadakiler
   //damy data
 
-  tableFoot!:TabelFoot;
-  tableFootModel!:payFoot;
+  tableFood!:TabelFood;
+  tableFoodModel!:payFood;
   intDivid:number=1;
 
   constructor() { }
   ngOnInit(): void {
     //init dumy data
-    this.myPayFoot.push(new  payFoot(this.footsMain[0],8,false))
-    this.myPayFoot.push(new  payFoot(this.footsMain[1],10,false))
-    this.myPayFoot.push(new  payFoot(this.footsMain[2],3,false))
-    this.tableFoot={id:1,foot:this.myPayFoot,table:this.tables[0],companyId:1}
+    this.myPayFood.push(new  payFood(this.foodsMain[0],8,false))
+    this.myPayFood.push(new  payFood(this.foodsMain[1],10,false))
+    this.myPayFood.push(new  payFood(this.foodsMain[2],3,false))
+    this.tableFood={id:1,food:this.myPayFood,table:this.tables[0],companyId:1}
      //init dumy data
   }
   //prepare for pay
   onChangeForFee(id:number){
-    this.tableFootModel= this.tableFoot.foot.filter(it => it.foot.id == id)[0];
+    this.tableFoodModel= this.tableFood.food.filter(it => it.food.id == id)[0];
   }
   //prepare for pay
 
@@ -62,29 +62,29 @@ export class TableDetailComponent implements OnInit {
 
   getMainFee(){
     var mainPrice=0;
-    this.tableFoot.foot.forEach(element => {
+    this.tableFood.food.forEach(element => {
       if(!element.paid){
-          mainPrice+=element.foot.price*element.total
+          mainPrice+=element.food.price*element.total
       }
     });
     return +mainPrice
   }
   fullPay(){
-    this.tableFoot.foot=[];
+    this.tableFood.food=[];
   }
   singlePay(){
-    var count =this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].total;
+    var count =this.tableFood.food.filter(it => it == this.tableFoodModel)[0].total;
     if(count!=1){
-      this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].total--;
+      this.tableFood.food.filter(it => it == this.tableFoodModel)[0].total--;
     }else{
-      this.removeAtArray(this.tableFoot.foot.filter(it => it == this.tableFootModel)[0].foot.id)
+      this.removeAtArray(this.tableFood.food.filter(it => it == this.tableFoodModel)[0].food.id)
     }    
   }
   
   private removeAtArray(mytext:number){
-    for( var i = 0; i < this.tableFoot.foot.length; i++){ 
-      if ( this.tableFoot.foot[i].foot.id === mytext) { 
-        this.tableFoot.foot.splice(i, 1); 
+    for( var i = 0; i < this.tableFood.food.length; i++){ 
+      if ( this.tableFood.food[i].food.id === mytext) { 
+        this.tableFood.food.splice(i, 1); 
       }
     }
   }

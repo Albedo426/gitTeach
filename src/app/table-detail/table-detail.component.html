@@ -13,13 +13,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let myTF of tableFoot.foot">
-                      <td *ngIf="myTF.paid==false">{{myTF.foot.name}}</td>
-                      <td *ngIf="myTF.paid==false">{{myTF.menstruation}}</td>
-                      <td *ngIf="myTF.paid==false">{{myTF.menstruation * myTF.foot.price}}</td>
+                  <tr *ngFor="let myTF of tableFood.food">
+                      <td *ngIf="myTF.paid==false">{{myTF.food.name}}</td>
+                      <td *ngIf="myTF.paid==false">{{myTF.total}}</td>
+                      <td *ngIf="myTF.paid==false">{{myTF.total * myTF.food.price}}</td>
                       <td *ngIf="myTF.paid==false"><input class="form-check-input" type="radio"  
-                        value="{{myTF.foot.id}}"  name="flexRadioDefault"
-                       (change)="onChangeForFee(myTF.foot.id)"
+                        value="{{myTF.food.id}}"  name="flexRadioDefault"
+                       (change)="onChangeForFee(myTF.food.id)"
                        id="autoSizingCheck"></td>
                 </tr>
               

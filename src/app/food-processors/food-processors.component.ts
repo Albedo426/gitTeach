@@ -2,20 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BaseProcessComponent } from '../BaseProcessComponent';
 import { Category } from './Category';
-import { Foots } from './Foots';
+import { Food } from './Food';
 @Component({
   selector: 'app-food-processors',
   templateUrl: './food-processors.component.html',
   styleUrls: ['./food-processors.component.css']
 })
-export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
+export class FoodProcessorsComponent extends BaseProcessComponent<Food> {
 
   //damy data
   categories:Category[]=[
     {id:1,name:"Sıcak İçecek",companyId:1},
     {id:2,name:"Tatlı",companyId:2},
   ];
-  foots:Foots[]=[
+  foods:Food[]=[
     {id:1,name:"waffle",price: 10.10,companyId:2,category:this.categories[1]},
     {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
     {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
@@ -23,7 +23,7 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
   //damy data
 
   constructor() { 
-    super(new Foots);
+    super(new Food);
   }
 
 
@@ -34,12 +34,12 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
   //for add process
   override add():void{
     //alert(this.model.toString());
-    this.insertModel.id=this.foots[this.foots.length - 1]!.id+1;//get last index and push insertmodel
-    this.foots.push(this.insertModel)
+    this.insertModel.id=this.foods[this.foods.length - 1]!.id+1;//get last index and push insertmodel
+    this.foods.push(this.insertModel)
     this.selectedCategory=new Category();
-    this.insertModel=new Foots()
+    this.insertModel=new Food()
   }
-  onChangeCategoryInFootFromAdd(deviceValue: Category) {
+  onChangeCategoryInFoodFromAdd(deviceValue: Category) {
     this.insertModel.category=deviceValue;
   }
   //for add process
@@ -47,9 +47,9 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
   //for remove process
   override remove(){
     for( var i = 0; i < this.removeIds.length; i++){ 
-      for( var k = 0; k <this.foots.length; k++){ 
-        if ( this.foots[k].id === this.removeIds[i]) { 
-           this.foots.splice(k, 1); 
+      for( var k = 0; k <this.foods.length; k++){ 
+        if ( this.foods[k].id === this.removeIds[i]) { 
+           this.foods.splice(k, 1); 
         }
       }
     }
@@ -58,15 +58,15 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Foots> {
 
   //for update process
   changeUpdateData(id:number){
-    this.updateModel = this.foots.filter(it => it.id == id)[0];
+    this.updateModel = this.foods.filter(it => it.id == id)[0];
     this.updateData(this.updateModel);
   }
-  updateData(foot:Foots){
-    const objIndex = this.foots.findIndex((x => x.id == foot.id));
-    this.foots[objIndex]=this.updateModel;
+  updateData(food:Food){
+    const objIndex = this.foods.findIndex((x => x.id == food.id));
+    this.foods[objIndex]=this.updateModel;
   }
 
-  onChangeCategoryInFootFromUpdate(deviceValue: Category) {
+  onChangeCategoryInFoodFromUpdate(deviceValue: Category) {
     this.updateModel.category=deviceValue;
   }
   //for update process

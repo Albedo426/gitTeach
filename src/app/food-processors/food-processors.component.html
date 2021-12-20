@@ -8,7 +8,7 @@
             </div>
             <div  *ngIf="categories"  class="form-group">
                 <label for="CategoriesLable">Yemek Kategorisi</label>
-                <select class="form-control" id="CategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChangeCategoryInFootFromAdd($event)" name="sel2">
+                <select class="form-control" id="CategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="selectedCategory" (ngModelChange)="onChangeCategoryInFoodFromAdd($event)" name="sel2">
                     <option value="" selected disabled>Kategori seç</option>
                     <option *ngFor="let category of categories" [ngValue]="category"  >
                         {{ category.name }}
@@ -35,7 +35,7 @@
     <mat-tab label="Sil">
         <div class="col-12 d-flex flex-row">
             <div class="col-12 overflow-auto"><!--tablo eklenecek-->
-                <table *ngIf="foots"  class="table col-12" >
+                <table *ngIf="foods"  class="table col-12" >
                     <thead>
                     <tr>
                         <th >Yemek Adı</th>
@@ -45,12 +45,12 @@
                     </thead>
                     <tbody>
                                
-                    <tr *ngFor="let foot of foots"  >
-                        <td>{{foot.name}}</td>
-                        <td>{{foot.price}}</td>
+                    <tr *ngFor="let food of foods"  >
+                        <td>{{food.name}}</td>
+                        <td>{{food.price}}</td>
                         <td><input class="form-check-input" type="checkbox"  
-                            value="{{foot.id}}"
-                           (change)="changeStackRemove(foot.id)"
+                            value="{{food.id}}"
+                           (change)="changeStackRemove(food.id)"
                            id="autoSizingCheck"></td>
                     </tr>
                     </tbody>
@@ -75,12 +75,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let foot of foots"  >
-                            <td>{{foot.name}}</td>
-                            <td>{{foot.price}}</td>
+                        <tr *ngFor="let food of foods"  >
+                            <td>{{food.name}}</td>
+                            <td>{{food.price}}</td>
                             <td><input class="form-check-input" type="radio"  
-                                value="{{foot.id}}"  name="flexRadioDefault"
-                               (change)="changeUpdateData(foot.id)"
+                                value="{{food.id}}"  name="flexRadioDefault"
+                               (change)="changeUpdateData(food.id)"
                                id="autoSizingCheck"></td>
                         </tr>
                 </table>
@@ -93,7 +93,7 @@
             </div>
             <div  *ngIf="categories"  class="form-group">
                 <label for="FootCategoriesLable">Yemek Kategorisi</label>
-                <select class="form-control" id="FootCategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="updateModel.category" (ngModelChange)="onChangeCategoryInFootFromUpdate($event)" name="sel3">
+                <select class="form-control" id="FootCategoriesSelect" aria-placeholder="Kategori seç"  [ngModel]="updateModel.category" (ngModelChange)="onChangeCategoryInFoodFromUpdate($event)" name="sel3">
                     <option value="" selected disabled>Kategori seç</option>
                     <option *ngFor="let category of categories" [ngValue]="category"  >
                         {{ category.name }}
