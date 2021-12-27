@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { Food } from '../food-processors/Food';
-import { Category } from '../food-processors/Category';
-import { payFood } from '../table-detail/payFood';
-import { Table } from '../component-tables/Table';
-import { TabelFood } from '../component-tables/TableFooD';
+import { ActivatedRoute } from '@angular/router';
+import { Food } from '../Model/Food';
+import { Category } from '../Model/Category';
+import { payFood } from '../Model/payFood';
+import { TabelFood } from '../Model/TableFood';
+import { CategoryService } from '../Services/category.service';
+import { FoodService } from '../Services/food.service';
+import { TableDetailService } from '../Services/table-detail.service';
 
 @Component({
   selector: 'app-food-add-processors',
@@ -16,19 +19,10 @@ export class FoodAddProcessorsComponent implements OnInit {
  
   //dumy daya
   foods:Food[]=[];
-  categories:Category[]=[
-    {id:1,name:"Sıcak İçecek",companyId:1},
-    {id:2,name:"Tatlı",companyId:2},
-  ];
-  foodsMain:Food[]=[
-    {id:1,name:"waffle",price: 10.10,companyId:2,category:this.categories[1]},
-    {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
-    {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
-  ];
+  categories:Category[]=[];
+  foodsMain:Food[]=[ ];
   myPayFood:payFood[]=[]
   //dumy data
-  
-  getTable:Table=new Table();
   tableFood!:TabelFood;
 
   //for add food to table
@@ -36,33 +30,49 @@ export class FoodAddProcessorsComponent implements OnInit {
   total:number=1;
   modelForAddToTable:Food=new Food()
   //for add food to table
+  tableId=0
+  constructor(public activatedRout:ActivatedRoute,
+    private categoryServices:CategoryService,
+    private foodServices:FoodService,
+    private tableDetailService:TableDetailService) { }//table servis de eklenecek //CAtegory Servis eklenecek/food servis
 
-  constructor() { }
   ngOnInit(): void {
-    this.getTable= {id:1,name:"Masa1",companyId:1};//get table
-    this.tableFood={id:1,table:this.getTable,food:this.myPayFood,companyId:1}//seach and get from sql 
+    //kategoriler all
+    this.activatedRout.params.subscribe(params=>{
+       //seçili table  id
+      this.tableId=params['TableId']
+      this.initParams()
+    })
+  }
+  
+  initParams(){
+    this.tableFood=this.tableDetailService.findTableFoodForTable( this.tableId,1)//seach and get from sql 
+    this.categories=this.categoryServices.getAll(1);
+    this.foodsMain=this.foodServices.getAll(1);
   }
   //add food to table process
-  onChangeFoodToCategories(deviceValue: Category) {
+  onChangeFoodToCategories(deviceValue: Category) {//selectedden kategori seçince
+    //tüm yemekleri  ilgili kategoiye göre çek  foods parametresine aktar foods main gereksiz
     this.foods = this.foodsMain.filter(it => it.category.id == deviceValue.id);//fillTable
   }
   selectedForFee(id:number){
-    this.modelForAddToTable=this.foods.filter(it => it.id == id)[0];
+    this.modelForAddToTable=this.foods.filter(it => it.id == id)[0];// bir şeye gerek yok  
+    //modelForAddToTable seçilen food var ekleme işlemi için gerekli
   }
   addFoodToTable(){
     if(this.modelForAddToTable.id!=null){
       var index:number=-1;
-     
       if(this.tableFood.food.length!=0){
         index = this.tableFood.food.findIndex((it) => it.food.id === this.modelForAddToTable.id);
       }
       if (index >= 0) {
-        this.tableFood.food[index].total+=this.total
+        this.tableDetailService.addFoodQuantitiy  ( this.tableFood.food[index].food.id, this.tableFood.id,this.total)
       }else{
         var myfoodTable= this.tableFood;
-        myfoodTable.food.push(new payFood(this.modelForAddToTable,this.total,false)) ;
-         this.tableFood= myfoodTable;
+        this.tableDetailService.addForNewFoodToTable(myfoodTable.id,new payFood(this.modelForAddToTable,this.total,false))
+        this.tableFood= myfoodTable;
       }
+      this.initParams();
     }else{
       alert("yemek seçin");
     }

@@ -69,6 +69,9 @@
               <label for="nameLable">Masa Adı</label>
               <input type="text" class="form-control" aria-label="Amount" name="name"  [(ngModel)]="updateModel.name">
             </div>
+            <div class="p-2 ">
+                <button type="button" (click)="updateDataSave()" class="btn btn-secondary myButton">Güncellemeyi kaydet</button>
+            </div>
           </form>
     </mat-tab>
 </mat-tab-group>

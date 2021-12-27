@@ -1,10 +1,9 @@
-import { Food } from "../food-processors/Food";
-
+import { Food } from "./Food";
 
 export class payFood  {
     food!:Food;
     paid!:boolean;
-    total!:number;
+    total!:number;//quantity
     createDate:Date=new Date;
     constructor( food:Food,total:number, paid:boolean,createDate?:Date){
         this.food=food;

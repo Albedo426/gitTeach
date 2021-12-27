@@ -1,34 +1,36 @@
 import { Component } from '@angular/core';
-import { Company } from './Company';
 import { DatePipe } from '@angular/common'
+import { Router } from '@angular/router';
+import { Company } from './Model/Company';
+import { CompanyService } from './Services/company.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-
 export class AppComponent {
   companyModel:Company=new Company();
-  setDay:Date=new Date;
-  companyList:Company[]=[]
-  constructor() {
-    this.setDay.setDate(this.setDay.getDate() + 1);
-    this.companyList.push({id:1,companyName:"şfrket1",companyUserEmail:"company1",companyUserPassword:"pass123",companyMembershipDate:this.setDay})
-    this.companyList.push({id:2,companyName:"şfrket2",companyUserEmail:"company2",companyUserPassword:"pass123",companyMembershipDate:this.setDay})
-   
-    var setDay2=new Date;
-    this.companyList.push({id:3,companyName:"şfrket3",companyUserEmail:"company3",companyUserPassword:"pass123",companyMembershipDate:setDay2})
+  isLogin:boolean=false;
+  constructor(public router: Router,private companyServices:CompanyService) {
   }
   login(){
-    var user= this.companyList.filter(
-      user => user.companyUserEmail == this.companyModel.companyUserEmail && user.companyUserPassword == this.companyModel.companyUserPassword)[0];
-    if(user){
-      //kullanıcı var
+    var myCompany:Company=this.companyServices.login(this.companyModel);
+    if(myCompany!=null){
+      this.companyModel=myCompany
+      this.isLogin=true;
     }else{
-      //kullanıcı yok
+      alert("kullanıcı bulunamadı");
     }
-    
   }
-  
-  title = 'testProject';
+  register() {
+    this.companyServices.add(this.companyModel);
+    this.login();
+  }
+  logOut(){
+    this.isLogin=false;
+    this.companyModel=new Company()
+  }
+  update(){
+    this.companyServices.update(this.companyModel);
+  }
 }

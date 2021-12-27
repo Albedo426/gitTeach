@@ -13,6 +13,12 @@ import { TableProcessorsComponent } from './table-processors/table-processors.co
 import { FormsModule }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FoodAddProcessorsComponent } from './food-add-processors/food-add-processors.component';
+import {HttpClientModule} from '@angular/common/http';
+import { TableService } from './Services/table.service';
+import { CategoryService } from './Services/category.service';
+import { FoodService } from './Services/food.service';
+import { CompanyService } from './Services/company.service';
+import { TableDetailService } from './Services/table-detail.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,10 +32,11 @@ import { FoodAddProcessorsComponent } from './food-add-processors/food-add-proce
   imports: [
     MatTabsModule,
     BrowserModule,FormsModule,ReactiveFormsModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [TableService,CategoryService,FoodService,CompanyService,TableDetailService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

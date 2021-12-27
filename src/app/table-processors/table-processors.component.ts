@@ -1,30 +1,42 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseProcessComponent } from '../BaseProcessComponent';
-import { Table } from '../component-tables/Table';
+import { BaseProcessComponent } from '../Bases/BaseProcessComponent';
+import { Table } from '../Model/Table';
+import { TableService } from '../Services/table.service';
 
 @Component({
   selector: 'app-table-processors',
   templateUrl: './table-processors.component.html',
-  styleUrls: ['./table-processors.component.css']
+  styleUrls: ['./table-processors.component.css'],
+  providers:[]
 })
 export class TableProcessorsComponent extends BaseProcessComponent<Table> {
-
-  //dummy data
-  tables:Table[]=[
-    {id:1,name:"Masa1",companyId:1},
-    {id:2,name:"Masa2",companyId:2},
-  ];
-  //dummy data
-
-  constructor() { 
-    super(new Table);
+  updateData(id: Table): void {
+    throw new Error('Method not implemented.');
   }
 
+  //dummy data
+  tables:Table[]=[];
+  //dummy data
+  constructor(private tableServices:TableService) { 
+    super(new Table);
+  }
+  override ngOnInit(): void {
+    //this.tableServices.getAllTable().subscribe(data=>{
+      //olur
+    //});
+    this.init();
+  }
+  init(){
+    this.tables=this.tableServices.getAll(1)
+    this.insertModel.companyId=1
+  }
   //for add process
   override add(){
-    this.insertModel.id=this.tables[this.tables.length - 1]!.id+1;//get last index and push insertmodel
-    this.tables.push(this.insertModel)
+    this.insertModel.id= this.tableServices.getLastIndex();//get last index and push insertmodel
+    this.tableServices.add(this.insertModel)
     this.insertModel=new Table()
+    this.insertModel.companyId=1
+    this.init();
   }
    //for add process
 
@@ -33,22 +45,21 @@ export class TableProcessorsComponent extends BaseProcessComponent<Table> {
    override remove(){
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.tables.length; k++){ 
-        if ( this.tables[k].id === this.removeIds[i]) { 
-           this.tables.splice(k, 1); 
+        if ( this.tables[k].id === this.removeIds[i]) {
+          this.tableServices.remove(this.tables[k].id); 
         }
       }      
     }
+    this.init();
   }
   
   //for update process
   override changeUpdateData(id:number){
     this.updateModel= this.tables.filter(it => it.id == id)[0];
-    this.updateData(this.updateModel);
   }
   
-  override updateData(table:Table){
-    const objIndex = this.tables.findIndex((x => x.id == table.id));
-    this.tables[objIndex]=this.updateModel;
+  updateDataSave(){
+    this.tableServices.update( this.updateModel); 
+    this.init();
   }
-    //for update process
 }

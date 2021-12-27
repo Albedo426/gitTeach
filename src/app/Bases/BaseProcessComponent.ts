@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from "@angular/core";
+import { Category } from "../Model/Category";
 import { BaseExportClass } from "./BaseExportClass";
-import { Category } from "./food-processors/Category";
 @Component({
     template: ''
   })
@@ -46,7 +46,7 @@ export abstract  class BaseProcessComponent<T extends BaseExportClass> implement
     abstract add():void;
     abstract remove():void;
     abstract changeUpdateData(id:number):void;
-    abstract updateData(id:T):void;
+    abstract updateDataSave(id:T):void;
 }
 function MyValueToken(MyValueToken: any) {
     throw new Error("Function not implemented.");

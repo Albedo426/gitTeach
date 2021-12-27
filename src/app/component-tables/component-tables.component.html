@@ -1,7 +1,7 @@
 
 
 <div *ngIf="tables">
-    <button *ngFor="let table of tables"  type="button" class="btn btn-secondary myTable">
+    <button *ngFor="let table of tables" routerLink="tableDetail/{{table.id}}"  type="button" class="btn btn-secondary myTable">
         {{table.name}}
     </button>
 </div>

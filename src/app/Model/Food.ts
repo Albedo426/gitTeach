@@ -1,7 +1,7 @@
-import { BaseExportClass } from '../BaseExportClass';
+import { BaseExportClass } from '../Bases/BaseExportClass';
 import { Category } from './Category';
 
-export class Foots extends BaseExportClass {
+export class Food extends BaseExportClass {
   
     name!: string;
     price!: number;

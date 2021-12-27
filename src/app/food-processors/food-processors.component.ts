@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { BaseProcessComponent } from '../BaseProcessComponent';
-import { Category } from './Category';
-import { Food } from './Food';
+import { BaseProcessComponent } from '../Bases/BaseProcessComponent';
+import { Category } from '../Model/Category';
+import { Food } from '../Model/Food';
+import { CategoryService } from '../Services/category.service';
+import { FoodService } from '../Services/food.service';
 @Component({
   selector: 'app-food-processors',
   templateUrl: './food-processors.component.html',
@@ -12,32 +14,32 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Food> {
 
   //damy data
   categories:Category[]=[
-    {id:1,name:"Sıcak İçecek",companyId:1},
-    {id:2,name:"Tatlı",companyId:2},
   ];
   foods:Food[]=[
-    {id:1,name:"waffle",price: 10.10,companyId:2,category:this.categories[1]},
-    {id:2,name:"çay",price: 5,companyId:2,category:this.categories[0]},
-    {id:3,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
   //damy data
 
-  constructor() { 
+  constructor(private foodServices:FoodService,private categoryServices:CategoryService) { 
     super(new Food);
   }
-
-
   override ngOnInit(): void {
     this.insertModel.companyId=1//defauld şirketId
+   
+    this.init();
   }
-
+  init(){
+    this.foods=this.foodServices.getAll(1)
+    this.categories=this.categoryServices.getAll(1)
+  }
   //for add process
-  override add():void{
+  add():void{
     //alert(this.model.toString());
-    this.insertModel.id=this.foods[this.foods.length - 1]!.id+1;//get last index and push insertmodel
-    this.foods.push(this.insertModel)
+    this.insertModel.id=   this.foodServices.getLastIndex()//get last index and push insertmodel
+    this.foodServices.add(this.insertModel)
     this.selectedCategory=new Category();
     this.insertModel=new Food()
+    this.insertModel.companyId=1//defauld şirketId
+    this.init();
   }
   onChangeCategoryInFoodFromAdd(deviceValue: Category) {
     this.insertModel.category=deviceValue;
@@ -49,23 +51,23 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Food> {
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.foods.length; k++){ 
         if ( this.foods[k].id === this.removeIds[i]) { 
-           this.foods.splice(k, 1); 
+          this.foodServices.remove(this.foods[k].id); 
+          console.log(this.foods)
         }
       }
     }
+    this.init();
   }
   //for remove process
 
   //for update process
-  changeUpdateData(id:number){
-    this.updateModel = this.foods.filter(it => it.id == id)[0];
-    this.updateData(this.updateModel);
+  override changeUpdateData(id:number){
+    this.updateModel= this.foods.filter(it => it.id == id)[0];
   }
-  updateData(food:Food){
-    const objIndex = this.foods.findIndex((x => x.id == food.id));
-    this.foods[objIndex]=this.updateModel;
+  override updateDataSave(){
+    this.foodServices.update( this.updateModel); 
+    this.init();
   }
-
   onChangeCategoryInFoodFromUpdate(deviceValue: Category) {
     this.updateModel.category=deviceValue;
   }

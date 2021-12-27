@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BaseProcessComponent } from '../BaseProcessComponent';
-import { Category } from '../food-processors/Category';
+import { BaseProcessComponent } from '../Bases/BaseProcessComponent';
+import { Category } from '../Model/Category';
+import { CategoryService } from '../Services/category.service';
 
 @Component({
   selector: 'app-categories-processors',
@@ -11,26 +12,31 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
  
 
   //damyData
-  categories:Category[]=[
-    {id:1,name:"Sıcak İçecek",companyId:1},
-    {id:2,name:"Tatlı",companyId:1},
-  ];
+  categories:Category[]=[];
   //damyData
   
-  constructor() { 
+  constructor(private categoryServices:CategoryService) { 
     super(new Category);
   }
 
   override ngOnInit(): void {
     //this.insertModel.companyId=1//default company
+    
     this.insertModel.companyId=1
+    this.init()
+  }
+  init(){
+    this.categories=this.categoryServices.getAll(1)//defauld
   }
   
   //for add proses
   override add(): void {
     this.insertModel.id=this.categories[this.categories.length - 1]!.id+1;//get last index and push insertmodel
-    this.categories.push(this.insertModel)
+    console.log(this.categories[this.categories.length - 1]!.id)
+    this.categoryServices.add(this.insertModel)
     this.insertModel=new Category()
+    this.insertModel.companyId=1
+    this.init()
   }
   //for add proses
 
@@ -39,21 +45,22 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.categories.length; k++){ 
         if ( this.categories[k].id === this.removeIds[i]) { 
-           this.categories.splice(k, 1); 
+          this.categoryServices.remove(this.categories[k].id); 
         }
       }
     }
+    this.init();
   }
   //for remove proses
-
+  
   //for update prosses
+ 
   override changeUpdateData(id:number){
-    this.updateModel = this.categories.filter(it => it.id == id)[0];
-    this.updateData(this.updateModel);
+    this.updateModel= this.categories.filter(it => it.id == id)[0];
   }
-  override updateData(category:Category): void {
-    const objIndex = this.categories.findIndex((x => x.id == category.id));
-    this.categories[objIndex]=this.updateModel;
+  updateDataSave(){
+    this.categoryServices.update( this.updateModel); 
+    this.init();
   }
 
   //for update prosses
