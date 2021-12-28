@@ -12,39 +12,31 @@ import { TabelFood } from '../Model/TableFood';
 export class TableDetailService {
  
   categories:Category[]=[
-    {id:1,name:"Sıcak İçecek",companyId:1},
-    {id:2,name:"Tatlı",companyId:1},
-    {id:2,name:"Ana Yemek",companyId:2},
+    {id:1,name:"Sıcak İçecek"},
+    {id:2,name:"Tatlı"},
+    {id:2,name:"Ana Yemek"},
   ];
   foodsMain:Food[]=[
-    {id:1,name:"waffle",price: 10.10,companyId:1,category:this.categories[1]},
-    {id:3,name:"oralet",price: 5,companyId:1,category:this.categories[0]},
-    {id:4,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
+    {id:1,name:"waffle",price: 10.10,category:this.categories[1]},
+    {id:3,name:"oralet",price: 5,category:this.categories[0]},
+    {id:4,name:"kahve",price: 10,category:this.categories[0]}
   ];
-  company:Company={
-    "id": 1,
-    "companyName": "string",
-    "companyUserEmail": "string",
-    "companyUserPassword": "SVGStringList",
-    "companyMembershipDate": new Date,
-  
-  }
   tables : Table[] = [
-    {id:1,name:"masa1",company:this.company},
-    {id:2,name:"masa2",company:this.company},
-    {id:3,name:"masa3",company:this.company},
-    {id:4,name:"masa4",company:this.company},
-    {id:5,name:"masa5",company:this.company},
-    {id:6,name:"masa6",company:this.company}
+    {id:1,name:"masa1"},
+    {id:2,name:"masa2"},
+    {id:3,name:"masa3"},
+    {id:4,name:"masa4"},
+    {id:5,name:"masa5"},
+    {id:6,name:"masa6"}
     ];
   myPayFood:payFood[]=[]
   tableFood:TabelFood[]=[
-    {id:1,table:this.tables[0],food:this.myPayFood,companyId:1},
-    {id:2,table:this.tables[1],food:this.myPayFood,companyId:1},
-    {id:3,table:this.tables[2],food:this.myPayFood,companyId:1},
-    {id:4,table:this.tables[3],food:this.myPayFood,companyId:1},
-    {id:5,table:this.tables[4],food:this.myPayFood,companyId:1},
-    {id:6,table:this.tables[5],food:this.myPayFood,companyId:1},
+    {id:1,table:this.tables[0],food:this.myPayFood},
+    {id:2,table:this.tables[1],food:this.myPayFood},
+    {id:3,table:this.tables[2],food:this.myPayFood},
+    {id:4,table:this.tables[3],food:this.myPayFood},
+    {id:5,table:this.tables[4],food:this.myPayFood},
+    {id:6,table:this.tables[5],food:this.myPayFood},
   ];
   constructor(private http:HttpClient) {
     this.myPayFood.push(new  payFood(this.foodsMain[0],8,false))
@@ -52,7 +44,7 @@ export class TableDetailService {
     this.myPayFood.push(new  payFood(this.foodsMain[2],3,false))
    }
   findTableFoodForTable(id:number,companyId:number):TabelFood{//tablefood çağırma tablo ide göre
-    const objIndex = this.tableFood.findIndex((x => x.table.id == id && x.companyId==companyId));
+    const objIndex = this.tableFood.findIndex((x => x.table.id == id ));
     return this.tableFood[objIndex]
   }
   addForNewFoodToTable(id:number,myfood:payFood){//Yeni Yemek ekleme TableFood ıd Ve eklenecek payfood

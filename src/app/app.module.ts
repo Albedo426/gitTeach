@@ -19,6 +19,8 @@ import { CategoryService } from './Services/category.service';
 import { FoodService } from './Services/food.service';
 import { CompanyService } from './Services/company.service';
 import { TableDetailService } from './Services/table-detail.service';
+import { BlankPageComponent } from './blank-page/blank-page.component';
+import { CompanyGuard } from './company.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +29,8 @@ import { TableDetailService } from './Services/table-detail.service';
     FoodProcessorsComponent,
     CategoriesProcessorsComponent,
     TableProcessorsComponent,
-    FoodAddProcessorsComponent
+    FoodAddProcessorsComponent,
+    BlankPageComponent
   ],
   imports: [
     MatTabsModule,
@@ -36,7 +39,7 @@ import { TableDetailService } from './Services/table-detail.service';
     AppRoutingModule,
     BrowserAnimationsModule
   ],
-  providers: [TableService,CategoryService,FoodService,CompanyService,TableDetailService],
+  providers: [TableService,CategoryService,FoodService,CompanyService,TableDetailService,CompanyGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

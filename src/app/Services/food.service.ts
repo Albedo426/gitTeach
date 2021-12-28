@@ -9,15 +9,15 @@ import { Food } from '../Model/Food';
 export class FoodService {
 
   categories:Category[]=[
-    {id:1,name:"Sıcak İçecek",companyId:1},
-    {id:2,name:"Tatlı",companyId:1},
-    {id:2,name:"Ana Yemek",companyId:2},
+    {id:1,name:"Sıcak İçecek"},
+    {id:2,name:"Tatlı"},
+    {id:2,name:"Ana Yemek"},
   ];
   foods:Food[]=[
-    {id:1,name:"waffle",price: 10.10,companyId:1,category:this.categories[1]},
-    {id:2,name:"çay",price: 5,companyId:1,category:this.categories[0]},
-    {id:3,name:"oralet",price: 5,companyId:1,category:this.categories[0]},
-    {id:4,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
+    {id:1,name:"waffle",price: 10.10,category:this.categories[1]},
+    {id:2,name:"çay",price: 5,category:this.categories[0]},
+    {id:3,name:"oralet",price: 5,category:this.categories[0]},
+    {id:4,name:"kahve",price: 10,category:this.categories[0]}
   ];
   constructor(private http:HttpClient) { }
 
@@ -31,12 +31,13 @@ export class FoodService {
     return this.foods[this.foods.length - 1]!.id+1;
   }
 
-  getAll(companyId:number):Observable<Food[]>{
-    var newpath=this.path+"/api/foodForCompany/"+companyId+"?populate=company";
+  getAll():Food[]{//:Observable<Food[]>{
+    /*var newpath=this.path+"/api/foodForCompany?populate=*";
     return this.http.get<Food[]>(newpath).pipe(
       tap(data=>this.foods=data),
       catchError(this.hadleError)
-    );
+    );*/
+    return this.foods
   }
   add(food:Food){
     this.foods.push(food)

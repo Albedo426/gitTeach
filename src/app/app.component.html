@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark " role="navigation">
   <div class="container">
-      <a class="navbar-brand" href="#">KafeSistem</a>
+      <a class="navbar-brand" >KafeSistem</a>
       <div class="collapse navbar-collapse" id="exCollapsingNavbar">
           <ul class="nav navbar-nav">
-              <li class="nav-item"><a href="#" routerLink="/foodProcess"  class="nav-link">Yemek</a></li>
-              <li class="nav-item"><a href="#" routerLink="/tableProcess"  class="nav-link">Masa</a></li>
-              <li class="nav-item"><a href="#" routerLink="/categoriesProcess"  class="nav-link">Kategori</a></li>
-              <li *ngIf="isLogin" class="nav-item"><a href="#"  class="nav-link">{{companyModel.companyName}}</a></li>
+              <li class="nav-item"><a  routerLink="/foodProcess"  class="nav-link">Yemek</a></li>
+              <li class="nav-item"><a  routerLink="/tableProcess"  class="nav-link">Masa</a></li>
+              <li class="nav-item"><a  routerLink="/categoriesProcess"  class="nav-link">Kategori</a></li>
+              <li *ngIf="isLogin" class="nav-item"><a   class="nav-link">{{companyModel.companyName}}</a></li>
           </ul>
         
           <ul   class="nav navbar-nav flex-row justify-content-between ml-auto">
-              <li class="nav-item order-2 order-md-1"><a href="#" class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
+              <li class="nav-item order-2 order-md-1"><a  class="nav-link" title="settings"><i class="fa fa-cog fa-fw fa-lg"></i></a></li>
               <li class="dropdown order-1">
                 <!-- kullanıcı yok ise yani kaydolmadıysa veya giriş yapmadıysa gösükücek öbür türlü ismi yazsa yeter ayarlar diyince alt kısma gönlensin-->
                   <button *ngIf="!isLogin" type="button" id="dropdownMenu1" data-toggle="dropdown" class="btn btn-outline-secondary dropdown-toggle">Giriş <span class="caret"></span></button>
@@ -29,7 +29,7 @@
                                   <button type="submit" class="btn btn-primary btn-block" (click)="login()">Login</button>
                               </div>
                               <div *ngIf="!isLogin" class="form-group text-center">
-                                  <small><a href="#"  data-toggle="modal" data-target="#modalPassword">Kaydol</a></small>
+                                  <small><a   data-toggle="modal" data-target="#modalPassword">Kaydol</a></small>
                               </div>
                               <div *ngIf="isLogin" class="btn btn-primary btn-block">
                                 <button type="submit" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#modalPassword">Ayarlar</button>
@@ -64,7 +64,6 @@
               <input type="password"  [(ngModel)]="companyModel.companyUserPassword" name="name" class="form-control" id="nameInput" placeholder="Şirket Şifre">
             </div>
           </div>
-      
           <div class="modal-footer">
               <button class="btn" data-dismiss="modal" aria-hidden="true">Kapat</button>
                   <!-- kullanıcı yok ise yani kaydolmadıysa veya giriş yapmadıysa gösükücek öbür türlü güncelleme click işlemi çalışsın-->

@@ -19,10 +19,7 @@ export class ComponentTablesComponent implements OnInit {
     this.number=this.tables.length;
   }
   init() {
-    this.tableServices.getAll(1).subscribe(data=>{
-      this.tables=data
-      console.log(this.tables)
-    });
+    this.tables=this.tableServices.getAll()
   }
  
 }

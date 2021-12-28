@@ -11,17 +11,7 @@ import { TableService } from '../Services/table.service';
   providers:[]
 })
 export class TableProcessorsComponent extends BaseProcessComponent<Table> {
-  updateData(id: Table): void {
-    throw new Error('Method not implemented.');
-  }
-  company:Company={
-    "id": 1,
-    "companyName": "fatih",
-    "companyUserEmail": "test@a.com",
-    "companyUserPassword": "asdasd",
-    "companyMembershipDate": new Date,
   
-  }
   //dummy data
   tables:Table[]=[];
   //dummy data
@@ -29,23 +19,18 @@ export class TableProcessorsComponent extends BaseProcessComponent<Table> {
     super(new Table);
   }
   override ngOnInit(): void {
-    this.tableServices.getAll(1).subscribe(data=>{
-      this.tables=data
-    });
+    //this.tableServices.getAllTable().subscribe(data=>{
+      //olur
+    //});
     this.init();
   }
   init(){
-    //this.tables=this.tableServices.getAll(1)
-    //this.insertModel.companyId=1
+    this.tables=this.tableServices.getAll()
   }
   //for add process
   override add(){
     this.insertModel.id= this.tableServices.getLastIndex();//get last index and push insertmodel
-    //this.insertModel.company=this.company
-    this.tableServices
-    .add(this.insertModel)
-    .subscribe(table => this.tables.push(table));
-  
+    this.tableServices.add(this.insertModel)
     this.insertModel=new Table()
     this.init();
   }
@@ -57,9 +42,7 @@ export class TableProcessorsComponent extends BaseProcessComponent<Table> {
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.tables.length; k++){ 
         if ( this.tables[k].id === this.removeIds[i]) {
-          this.tableServices.remove(this.tables[k].id).subscribe(table =>{ 
-            const objIndex = this.tables.findIndex((x => x.id ==table.id));
-            this.tables.splice(objIndex, 1); }); 
+          this.tableServices.remove(this.tables[k].id); 
         }
       }      
     }

@@ -3,5 +3,4 @@ import { Company } from "./Company";
 
 export class Table extends BaseExportClass {
     name!: string;
-    company!: Company;
 }

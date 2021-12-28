@@ -10,7 +10,6 @@ import { CategoryService } from '../Services/category.service';
 })
 export class CategoriesProcessorsComponent extends BaseProcessComponent<Category> {
  
-
   //damyData
   categories:Category[]=[];
   //damyData
@@ -21,14 +20,10 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
 
   override ngOnInit(): void {
     //this.insertModel.companyId=1//default company
-    
-    this.insertModel.companyId=1
     this.init()
   }
   init(){
-    this.categoryServices.getAll(1).subscribe(data=>{
-      this.categories=data
-    });
+    this.categories=this.categoryServices.getAll()//defauld
   }
   
   //for add proses
@@ -37,7 +32,6 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     console.log(this.categories[this.categories.length - 1]!.id)
     this.categoryServices.add(this.insertModel)
     this.insertModel=new Category()
-    this.insertModel.companyId=1
     this.init()
   }
   //for add proses
@@ -47,9 +41,7 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.categories.length; k++){ 
         if ( this.categories[k].id === this.removeIds[i]) { 
-          this.categoryServices.remove(this.categories[k].id).subscribe(table =>{ 
-            const objIndex = this.categories.findIndex((x => x.id ==table.id));
-            this.categories.splice(objIndex, 1); }); 
+          this.categoryServices.remove(this.categories[k].id); 
         }
       }
     }
@@ -66,6 +58,5 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     this.categoryServices.update( this.updateModel); 
     this.init();
   }
-
   //for update prosses
 }

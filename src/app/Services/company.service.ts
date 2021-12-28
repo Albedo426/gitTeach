@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { Company } from '../Model/Company';
 
-@Injectable()
+@Injectable({
+  providedIn:"root"
+})
 export class CompanyService {
   setDay:Date=new Date;
   companyList:Company[]=[]
@@ -30,6 +32,10 @@ export class CompanyService {
     for (let index = 0; index < this.companyList.length; index++) {
       if(this.companyList[index].companyUserEmail===company.companyUserEmail && this.companyList[index].companyUserPassword===company.companyUserPassword ){
         this.islogin=true
+        localStorage.setItem("isLoggin",String(this.companyList[index].id))
+        localStorage.setItem("companyUserEmail",String(this.companyList[index].companyUserEmail))
+        localStorage.setItem("companyUserPassword",String(this.companyList[index].companyUserPassword))
+        localStorage.setItem("companyName",String(this.companyList[index].companyName))
         return this.companyList[index]
       }
     }
@@ -37,6 +43,13 @@ export class CompanyService {
   }
   add(table:Company){
     this.companyList.push(table)
+  }
+  logout(){
+    this.islogin=false
+    localStorage.removeItem("isLoggin")
+    localStorage.removeItem("companyUserEmail")
+    localStorage.removeItem("companyUserPassword")
+    localStorage.removeItem("companyName")
   }
   update(updateModel:Company){
     const objIndex = this.companyList.findIndex((x => x.id == updateModel.id));

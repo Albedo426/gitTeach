@@ -10,8 +10,9 @@ import { CompanyService } from './Services/company.service';
 })
 export class AppComponent {
   companyModel:Company=new Company();
-  isLogin:boolean=false;
+  isLogin!:boolean;
   constructor(public router: Router,private companyServices:CompanyService) {
+    this.isLogin=companyServices.isLogin()
   }
   login(){
     var myCompany:Company=this.companyServices.login(this.companyModel);
@@ -22,12 +23,14 @@ export class AppComponent {
       alert("kullanıcı bulunamadı");
     }
   }
+ 
   register() {
     this.companyServices.add(this.companyModel);
     this.login();
   }
   logOut(){
     this.isLogin=false;
+    this.companyServices.logout()
     this.companyModel=new Company()
   }
   update(){
