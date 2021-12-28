@@ -28,8 +28,12 @@ export class FoodProcessorsComponent extends BaseProcessComponent<Food> {
     this.init();
   }
   init(){
-    this.foods=this.foodServices.getAll(1)
-    this.categories=this.categoryServices.getAll(1)
+    this.foodServices.getAll(1).subscribe(data=>{
+      this.foods=data
+    });
+    this.categoryServices.getAll(1).subscribe(data=>{
+      this.categories=data
+    });
   }
   //for add process
   add():void{

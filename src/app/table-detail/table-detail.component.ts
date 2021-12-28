@@ -43,7 +43,9 @@ export class TableDetailComponent implements OnInit {
      //init dumy data
   }
   initParams(){
-    this.foodsMain=this.foodServices.getAll(1);
+    this.foodServices.getAll(1).subscribe(data=>{
+      this.foodsMain=data
+    });
     this.tableFood=this.tableDetailService.findTableFoodForTable( this.tableId,1)//seach and get from sql 
   }
   //prepare for pay

@@ -1,4 +1,5 @@
 import { BaseExportClass } from "../Bases/BaseExportClass";
+import { Company } from "./Company";
 import { payFood } from "./payFood";
 import { Table } from "./Table";
 

@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Category } from '../Model/Category';
 import { Food } from '../Model/Food';
 
@@ -20,6 +21,7 @@ export class FoodService {
   ];
   constructor(private http:HttpClient) { }
 
+  path=environment.path
   //geçici
   getLastIndex():number{//Observable<Table[]>{
     /*return this.http.get<Table[]>(this.path).pipe(
@@ -29,12 +31,12 @@ export class FoodService {
     return this.foods[this.foods.length - 1]!.id+1;
   }
 
-  getAll(companyId:number):Food[]{//Observable<Table[]>{
-    /*return this.http.get<Table[]>(this.path).pipe(
-      tap(data=>console.log(JSON.stringify(data))),
+  getAll(companyId:number):Observable<Food[]>{
+    var newpath=this.path+"/api/foodForCompany/"+companyId+"?populate=company";
+    return this.http.get<Food[]>(newpath).pipe(
+      tap(data=>this.foods=data),
       catchError(this.hadleError)
-    );*/
-    return this.foods.filter((x => x.companyId==companyId ))
+    );
   }
   add(food:Food){
     this.foods.push(food)

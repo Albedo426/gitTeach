@@ -26,7 +26,9 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     this.init()
   }
   init(){
-    this.categories=this.categoryServices.getAll(1)//defauld
+    this.categoryServices.getAll(1).subscribe(data=>{
+      this.categories=data
+    });
   }
   
   //for add proses
@@ -45,7 +47,9 @@ export class CategoriesProcessorsComponent extends BaseProcessComponent<Category
     for( var i = 0; i < this.removeIds.length; i++){ 
       for( var k = 0; k <this.categories.length; k++){ 
         if ( this.categories[k].id === this.removeIds[i]) { 
-          this.categoryServices.remove(this.categories[k].id); 
+          this.categoryServices.remove(this.categories[k].id).subscribe(table =>{ 
+            const objIndex = this.categories.findIndex((x => x.id ==table.id));
+            this.categories.splice(objIndex, 1); }); 
         }
       }
     }

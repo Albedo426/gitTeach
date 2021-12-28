@@ -47,8 +47,12 @@ export class FoodAddProcessorsComponent implements OnInit {
   
   initParams(){
     this.tableFood=this.tableDetailService.findTableFoodForTable( this.tableId,1)//seach and get from sql 
-    this.categories=this.categoryServices.getAll(1);
-    this.foodsMain=this.foodServices.getAll(1);
+    this.categoryServices.getAll(1).subscribe(data=>{
+      this.categories=data
+    });
+    this.foodServices.getAll(1).subscribe(data=>{
+      this.foods=data
+    });
   }
   //add food to table process
   onChangeFoodToCategories(deviceValue: Category) {//selectedden kategori seçince

@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { Category } from '../Model/Category';
+import { Company } from '../Model/Company';
 import { Food } from '../Model/Food';
 import { payFood } from '../Model/payFood';
 import { Table } from '../Model/Table';
@@ -20,13 +21,21 @@ export class TableDetailService {
     {id:3,name:"oralet",price: 5,companyId:1,category:this.categories[0]},
     {id:4,name:"kahve",price: 10,companyId:2,category:this.categories[0]}
   ];
+  company:Company={
+    "id": 1,
+    "companyName": "string",
+    "companyUserEmail": "string",
+    "companyUserPassword": "SVGStringList",
+    "companyMembershipDate": new Date,
+  
+  }
   tables : Table[] = [
-    {id:1,name:"masa1",companyId:1},
-    {id:2,name:"masa2",companyId:1},
-    {id:3,name:"masa3",companyId:1},
-    {id:4,name:"masa4",companyId:2},
-    {id:5,name:"masa5",companyId:2},
-    {id:6,name:"masa6",companyId:2}
+    {id:1,name:"masa1",company:this.company},
+    {id:2,name:"masa2",company:this.company},
+    {id:3,name:"masa3",company:this.company},
+    {id:4,name:"masa4",company:this.company},
+    {id:5,name:"masa5",company:this.company},
+    {id:6,name:"masa6",company:this.company}
     ];
   myPayFood:payFood[]=[]
   tableFood:TabelFood[]=[
